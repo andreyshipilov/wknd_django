@@ -1,0 +1,16 @@
+{% spaceless %}<!doctype html>
+<html>
+	<head>
+		<title></title>
+		{% block head_addon %}{% endblock %}
+	</head>
+	<body>
+		{% if user.is_authenticated %}
+			<p>Welcome, {{ user.username }}. Thanks for logging in. <a href="{% url userena_signout %}">Logout</a></p>
+		{% else %}
+			<p>Welcome, new user. Please <a href="{% url userena_signin %}">log in</a>. <a href="{% url userena_signup %}">Or register</a>,</p>
+		{% endif %}
+
+		{% block content %}{% endblock %}
+	</body>
+</html>{% endspaceless %}

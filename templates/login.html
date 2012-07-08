@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block head_addon %}
+{% endblock %}
+
+{% block body_content %}
+	<form action="{% url login %}" method="post">
+		{% csrf_token %}
+		<p>
+			<input type="text" name="username" value="" />
+			<input type="password" name="password" value="" />
+		</p>
+		<input type="submit" value="Send" />
+	</form>
+	{% if login_failed %}
+		<p>Wrong username or password.</p>
+	{% endif %}
+
+	<p>
+		{% comment %}<a href="{% url socialauth_begin 'facebook' %}">Facebook login</a>{% endcomment %}
+	</p>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block content %}
+	<h1>{{ event.title }}</h1>
+	<span>Event starts </span>
+	{% if event.starts_today %}
+		<span>today at {{ event.date_time|date:"P" }} It's in {{ event.date_time|timeuntil }}.</span>
+	{% else %}
+		{% if event.starts_tomorrow %}
+			<span>tomorrow</span>
+		{% else %}
+			<span>{{ event.date_time|date:"\o\n F jS" }}</span>
+		{% endif %}
+		<span> {{ event.date_time|date:"\a\t P" }}</span>
+	{% endif %}
+	
+	{% if user.is_authenticated %}
+		{% if user_can_apply or user_can_resign_this %}
+			<form action="." method="post">
+				{% csrf_token %}
+				<input type="hidden" value="apply_or_resign" name="apply_or_resign" />
+				<input type="submit" value="{% if user_can_apply_this %}Apply{% else %}Resign{% endif %}" />
+			</form>
+		{% else %}
+			You can only apply for two events for the same date.
+		{% endif %}
+	{% endif %}
+{% endblock %}
