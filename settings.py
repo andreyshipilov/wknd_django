@@ -159,9 +159,20 @@ AUTHENTICATION_BACKENDS = (
     'guardian.backends.ObjectPermissionBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
-USERENA_SIGNIN_REDIRECT_URL = '/id/%(username)s/'
-LOGIN_URL = '/id/sign-in/'
-LOGOUT_URL = '/id/sign-out/'
+USERENA_SIGNIN_REDIRECT_URL = '/user/%(username)s/'
+#LOGIN_URL = '/user/sign-in/'
+#LOGOUT_URL = '/user/sign-out/'
+USERENA_FORBIDDEN_USERNAMES = ('signup', 'signout', 'signin', 'activate',
+                               'me', 'password', 'admin', 'agora', 'staff',
+                               'agoraciudadana', 'agoravoting', 'root',
+                               'administrator', 'adminstrador', 'hostmaster',
+                               'info', 'ssladmin', 'sysadmin', 'webmaster',
+                               'no-reply', 'mail', 'email', 'accounts', 'misc',
+                               'api', 'e-mail')
+USERENA_MUGSHOT_GRAVATAR = False
+USERENA_DISABLE_PROFILE_LIST = True
+USERENA_WITHOUT_USERNAMES = True
+USERENA_HIDE_EMAIL = True
 
-# Django gueardian
+# Django guardian
 ANONYMOUS_USER_ID = -1

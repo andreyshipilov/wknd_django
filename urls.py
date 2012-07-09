@@ -6,7 +6,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Social Auth
     #url(r'', include('social_auth.urls')),
-    (r'^id/', include('userena.urls')),
+    (r'^user/', include('userena.urls')),
 
     # WKND urls
     url(r'^all-places/$', 'wknd.views.all_places', name='all_places'),

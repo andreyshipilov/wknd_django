@@ -15,6 +15,7 @@ class Place(models.Model):
     """
     A club, a theater or any other place where an even can be held.
     """
+
     # Common textual info.
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True,)
@@ -116,8 +117,8 @@ class Event(models.Model):
         """
         Return only actual events. Event date should be greater than now.
         """
-        return Event.objects.all() #.filter(date_time__lt=datetime.now())\
-                    # .select_related()
+        return Event.objects.filter(date_time__gte=datetime.now())\
+                    .select_related()
 
     # How many places left on the list.
     def get_spare_places(self):
