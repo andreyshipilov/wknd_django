@@ -18,8 +18,11 @@ admin.site.register(Event, EventAdmin)
 admin.site.register(Genre)
 
 
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'user_type')
+#class ProfileAdmin(admin.ModelAdmin):
+#    list_display = ('user', 'user_type')
 # Already registered in Userena. So unregister it.
-admin.site.unregister(Profile)
-admin.site.register(Profile, ProfileAdmin)
+#admin.site.unregister(Profile)
+#admin.site.register(Profile, ProfileAdmin)
+
+#admin.site.register(Regular)
+#admin.site.register(Manager)

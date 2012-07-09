@@ -2,10 +2,11 @@ from datetime import datetime, timedelta
 
 from django.db import models
 from django.contrib.auth.models import User
-from pytils.translit import slugify
+from django.core.exceptions import ObjectDoesNotExist
 import settings
 
 from userena.models import UserenaLanguageBaseProfile, UserenaBaseProfile
+from pytils.translit import slugify
 
 
 """
@@ -26,6 +27,9 @@ class Place(models.Model):
     address = models.CharField(max_length=200)
     coords_lat = models.DecimalField(max_digits=20, decimal_places=17, blank=True,)
     coords_lng = models.DecimalField(max_digits=20, decimal_places=17, blank=True,)
+
+    # Place manager
+    # manager = models.ForeignKey(Manager)
 
     # logo = 
     # image = 
@@ -174,28 +178,57 @@ class Event(models.Model):
     def resign_user(self, user):
         if self.user_can_resign_this:
             self.applied_users.remove(user)
-    
+
 
 """
 All user types
 """
 USER_TYPES = (
-    (1, 'Regular user'),
+    (1, 'Profile user'),
     (2, 'Place manager'),
 )
 
-class Profile(UserenaBaseProfile):
-    """
-    Use 'UserenaLanguageBaseProfile' for having multiple languages later.
-    """
-    user = models.OneToOneField(User, primary_key=True, related_name='profile')
-    user_type = models.PositiveIntegerField(choices=USER_TYPES, default=1,
-                                            db_index=True,)
-
-class Regular(Profile):
-    profile = models.OneToOneField(Profile, primary_key=True)
+class Profile(models.Model):
     favourite_places = models.ManyToManyField(Place, blank=True,)
 
-class Manager(Profile):
-    profile = models.OneToOneField(Profile, primary_key=True)
+    #def __unicode__(self):
+    #    return "2" #unicode(self.baseuser.user)
+
+class Manager(models.Model):
     place = models.ForeignKey(Place)
+
+
+class BaseUser(UserenaBaseProfile):
+    """
+    Base User model.
+    TODO: Use 'UserenaLanguageBaseProfile' for having multiple languages later.
+    
+    """
+    
+    user = models.OneToOneField(User, primary_key=True,)
+    user_type = models.PositiveIntegerField(choices=USER_TYPES, default=1,
+                                            db_index=True,)
+    profile = models.OneToOneField(Profile, blank=True, null=True, unique=True,)
+    manager = models.OneToOneField(Manager, blank=True, null=True, unique=True,)
+
+    def save(self, *args, **kwargs):
+        """
+        Overriding the default save() behaviour.
+        
+        """
+        
+        models.Model.save(self, *args, **kwargs) # Original save.
+
+        # Create related objects correspondingly.
+        if self.user_type == 2:
+            try:
+                manager = Manager.objects.get(baseuser__user=self)
+            except ObjectDoesNotExist:
+                self.manager = Manager.objects.create()
+        elif self.user_type == 1:
+            try:
+                profile = Profile.objects.get(baseuser__user=self)
+            except ObjectDoesNotExist:
+                self.profile = Profile.objects.create()
+        
+        models.Model.save(self, *args, **kwargs) # Save again.

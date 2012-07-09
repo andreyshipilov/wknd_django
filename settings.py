@@ -123,7 +123,6 @@ LOGGING = {
 APPLICATION_PER_DAY_LIMIT = 2
 
 
-
 """
 Third party apps settings go after that line
 
@@ -153,7 +152,7 @@ FACEBOOK_API_SECRET = '5a1d9a765db277a6d65457de4cf3e786'
 """
 
 # Django userena
-AUTH_PROFILE_MODULE = 'wknd.Profile'
+AUTH_PROFILE_MODULE = 'wknd.BaseUser'
 AUTHENTICATION_BACKENDS = (
     'userena.backends.UserenaAuthenticationBackend',
     'guardian.backends.ObjectPermissionBackend',
