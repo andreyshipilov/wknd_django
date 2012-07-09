@@ -14,15 +14,13 @@ PATHS = (
 [sys.path.insert(0, i) if i not in sys.path else None for i in PATHS]
 
 
-
-
+# Settings
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )
-
 MANAGERS = ADMINS
 
 DATABASES = {
@@ -47,9 +45,6 @@ STATIC_ROOT = '%s/static/' % PROJECT_DIR
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
 )
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -124,7 +119,7 @@ APPLICATION_PER_DAY_LIMIT = 2
 
 
 """
-Third party apps settings go after that line
+Third party apps settings go after that line.
 
 """
 

@@ -184,51 +184,20 @@ class Event(models.Model):
 All user types
 """
 USER_TYPES = (
-    (1, 'Profile user'),
+    (1, 'Regular user'),
     (2, 'Place manager'),
 )
-
-class Profile(models.Model):
-    favourite_places = models.ManyToManyField(Place, blank=True,)
-
-    #def __unicode__(self):
-    #    return "2" #unicode(self.baseuser.user)
-
-class Manager(models.Model):
-    place = models.ForeignKey(Place)
-
 
 class BaseUser(UserenaBaseProfile):
     """
     Base User model.
     TODO: Use 'UserenaLanguageBaseProfile' for having multiple languages later.
-    
     """
-    
     user = models.OneToOneField(User, primary_key=True,)
     user_type = models.PositiveIntegerField(choices=USER_TYPES, default=1,
                                             db_index=True,)
-    profile = models.OneToOneField(Profile, blank=True, null=True, unique=True,)
-    manager = models.OneToOneField(Manager, blank=True, null=True, unique=True,)
-
-    def save(self, *args, **kwargs):
-        """
-        Overriding the default save() behaviour.
-        
-        """
-        
-        models.Model.save(self, *args, **kwargs) # Original save.
-
-        # Create related objects correspondingly.
-        if self.user_type == 2:
-            try:
-                manager = Manager.objects.get(baseuser__user=self)
-            except ObjectDoesNotExist:
-                self.manager = Manager.objects.create()
-        elif self.user_type == 1:
-            try:
-                profile = Profile.objects.get(baseuser__user=self)
-            except ObjectDoesNotExist:
-                self.profile = Profile.objects.create()
-        
-        models.Model.save(self, *args, **kwargs) # Save again.
+    # Regular user fields.
+    favourite_places = models.ManyToManyField(Place, blank=True,
+                                                   related_name='favourites',)
+    # Place manager fields.
+    manager_of = models.OneToOneField(Place, blank=True, null=True,)
