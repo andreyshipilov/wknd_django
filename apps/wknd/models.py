@@ -201,3 +201,9 @@ class BaseUser(UserenaBaseProfile):
                                                    related_name='favourites',)
     # Place manager fields.
     manager_of = models.OneToOneField(Place, blank=True, null=True,)
+
+    def is_regular(self):
+        return True if self.user_type == 1 else False
+    
+    def is_manager(self):
+        return True if self.user_type == 2 else False
