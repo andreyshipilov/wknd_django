@@ -50,7 +50,7 @@ def login(request):
     return render(request, 'login.html', extra_context)
 
 
-@login_required
+@login_required(redirect_field_name=None)
 @regular_user_required
 def regular_profile(request):
     user = request.user
@@ -60,7 +60,7 @@ def regular_profile(request):
     return render(request, 'regular/profile.html', extra_context)
 
 
-@login_required
+@login_required(redirect_field_name=None)
 @manager_user_required
 def manager_profile(request):
     user = request.user
