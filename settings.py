@@ -64,8 +64,8 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'userena.middleware.UserenaLocaleMiddleware',
+    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    #'userena.middleware.UserenaLocaleMiddleware',
 )
 
 ROOT_URLCONF = 'wknd_crew.urls'
@@ -73,6 +73,11 @@ ROOT_URLCONF = 'wknd_crew.urls'
 TEMPLATE_DIRS = (
     '%s/templates' % PROJECT_DIR,
 )
+
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+) + TEMPLATE_CONTEXT_PROCESSORS
 
 INSTALLED_APPS = (
     'django.contrib.auth',
@@ -88,12 +93,13 @@ INSTALLED_APPS = (
     #'social_auth',
     #'registration',
     #'profiles',
-    'userena',
-    'guardian',
+    #'userena',
+    #'guardian',
     'easy_thumbnails',
     'debug_toolbar',
 
     'wknd',
+    'usrs',
 )
 
 LOGGING = {
@@ -140,33 +146,37 @@ FACEBOOK_APP_ID = '331958003555865'
 FACEBOOK_API_SECRET = '5a1d9a765db277a6d65457de4cf3e786'
 
 #LOGIN_URL = '/login/'
-#LOGIN_REDIRECT_URL = '/logging-in/'
 #LOGIN_ERROR_URL = '/login-error/'
 #LOGIN_REDIRECT_URL = '/'
 #LOGOUT_REDIRECT_URL = '/'
 """
 
 # Django userena
-AUTH_PROFILE_MODULE = 'wknd.BaseUser'
-AUTHENTICATION_BACKENDS = (
-    'userena.backends.UserenaAuthenticationBackend',
-    'guardian.backends.ObjectPermissionBackend',
-    'django.contrib.auth.backends.ModelBackend',
-)
-USERENA_SIGNIN_REDIRECT_URL = '/user/%(username)s/'
+AUTH_PROFILE_MODULE = 'usrs.Profile'
+
+#AUTHENTICATION_BACKENDS = (
+#    'userena.backends.UserenaAuthenticationBackend',
+#    'guardian.backends.ObjectPermissionBackend',
+#    'django.contrib.auth.backends.ModelBackend',
+#)
+##USERENA_SIGNIN_REDIRECT_URL = '/user/%(username)s/'
 #LOGIN_URL = '/user/sign-in/'
 #LOGOUT_URL = '/user/sign-out/'
-USERENA_FORBIDDEN_USERNAMES = ('signup', 'signout', 'signin', 'activate',
-                               'me', 'password', 'admin', 'agora', 'staff',
-                               'agoraciudadana', 'agoravoting', 'root',
-                               'administrator', 'adminstrador', 'hostmaster',
-                               'info', 'ssladmin', 'sysadmin', 'webmaster',
-                               'no-reply', 'mail', 'email', 'accounts', 'misc',
-                               'api', 'e-mail')
-USERENA_MUGSHOT_GRAVATAR = False
-USERENA_DISABLE_PROFILE_LIST = True
-USERENA_WITHOUT_USERNAMES = True
-USERENA_HIDE_EMAIL = True
+#USERENA_FORBIDDEN_USERNAMES = ('signup', 'signout', 'signin', 'activate',
+#                               'me', 'password', 'admin', 'agora', 'staff',
+#                               'agoraciudadana', 'agoravoting', 'root',
+#                               'administrator', 'adminstrador', 'hostmaster',
+#                               'info', 'ssladmin', 'sysadmin', 'webmaster',
+#                               'no-reply', 'mail', 'email', 'accounts', 'misc',
+#                               'api', 'e-mail')
+#USERENA_MUGSHOT_GRAVATAR = False
+#USERENA_DISABLE_PROFILE_LIST = True
+#USERENA_HIDE_EMAIL = True
+
+LOGIN_URL = '/login/'
+
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 # Django guardian
 ANONYMOUS_USER_ID = -1

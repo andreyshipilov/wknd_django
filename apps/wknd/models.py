@@ -207,3 +207,6 @@ class BaseUser(UserenaBaseProfile):
     
     def is_manager(self):
         return True if self.user_type == 2 else False
+
+    class Meta:
+        abstract = True

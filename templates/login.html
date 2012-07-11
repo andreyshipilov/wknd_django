@@ -3,16 +3,16 @@
 {% block head_addon %}
 {% endblock %}
 
-{% block body_content %}
-	<form action="{% url login %}" method="post">
+{% block content %}
+	<form action="." method="post">
 		{% csrf_token %}
 		<p>
-			<input type="text" name="username" value="" />
-			<input type="password" name="password" value="" />
+			{{ form.username }}
+			{{ form.password }}
 		</p>
-		<input type="submit" value="Send" />
+		<input type="submit" value="Login" />
 	</form>
-	{% if login_failed %}
+	{% if form.errors %}
 		<p>Wrong username or password.</p>
 	{% endif %}
 
