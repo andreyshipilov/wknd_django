@@ -13,18 +13,11 @@ urlpatterns = patterns('',
 )
 
 
-"""    #url(r'^login/$', 'django.contrib.auth.views.login',
-    #    {'template_name': 'login.html'},
-    #    name='login',),"""
-
-
 """
     TODO: A lot.
     signup
     activation
-
     login
-    logout
 
     user profile edit
         email check
@@ -65,7 +58,7 @@ urlpatterns = patterns('',
        name='userena_password_change_complete'),
        
     # Edit profile
-    #url(r'^(?P<username>[\.\w]+)/edit/$',
+    # url(r'^(?P<username>[\.\w]+)/edit/$',
     #   userena_views.profile_edit,
     #   name='userena_profile_edit'),
 

@@ -2,11 +2,11 @@ from django.core.urlresolvers import reverse
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from django.http import HttpResponseRedirect
 
 from .decorators import regular_user_required, manager_user_required
 
@@ -19,9 +19,10 @@ def register(request):
 @csrf_protect
 @never_cache
 def login(request):
-    # Prevent access to login
+    # Prevent access to login.
     if request.user.is_authenticated():
-        return HttpResponseRedirect(reverse('home'))
+        # Redirect to profile.
+        return HttpResponseRedirect(request.user.profile.get_absolute_url())
 
     if request.method == 'POST':
         form = AuthenticationForm(data=request.POST)
@@ -31,23 +32,20 @@ def login(request):
             user = auth.authenticate(username=username,
                                 password=password)
             if user.is_active:
+                # If active - login.
                 auth.login(request, user)
+                # Set cookie for 30 days.
                 request.session.set_expiry(60 * 60 * 24 * 30)
-
-                # Where to now?
-                redirect_to = redirect_signin_function(
-                    request.REQUEST.get(redirect_field_name), user)
-                return redirect(redirect_to)
+                # Redirect to profile.
+                return HttpResponseRedirect(user.profile.get_absolute_url())
             else:
-                return redirect(reverse('userena_disabled',
-                                        kwargs={'username': user.username}))
+                pass # TODO: Give link to resend activation.
     else:
         form = AuthenticationForm()
 
-    extra_context = {}
-    extra_context.update({
+    extra_context = {
         'form': form,
-    })
+    }
 
     return render(request, 'login.html', extra_context)
 
