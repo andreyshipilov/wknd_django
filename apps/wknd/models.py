@@ -128,10 +128,12 @@ class Event(models.Model):
     def get_spare_places(self):
         return None
 
+    @property
     def starts_today(self):
         return True if self.date_time.date() == \
             datetime.today().date() else False
     
+    @property
     def starts_tomorrow(self):
         return True if self.date_time.date() == \
             datetime.today().date() + timedelta(1) else False
@@ -178,35 +180,3 @@ class Event(models.Model):
     def resign_user(self, user):
         if self.user_can_resign_this:
             self.applied_users.remove(user)
-
-
-"""
-All user types
-"""
-USER_TYPES = (
-    (1, 'Regular user'),
-    (2, 'Place manager'),
-)
-
-class BaseUser(UserenaBaseProfile):
-    """
-    Base User model.
-    TODO: Use 'UserenaLanguageBaseProfile' for having multiple languages later.
-    """
-    user = models.OneToOneField(User, primary_key=True,)
-    user_type = models.PositiveIntegerField(choices=USER_TYPES, default=1,
-                                            db_index=True,)
-    # Regular user fields.
-    favourite_places = models.ManyToManyField(Place, blank=True,
-                                                   related_name='favourites',)
-    # Place manager fields.
-    manager_of = models.OneToOneField(Place, blank=True, null=True,)
-
-    def is_regular(self):
-        return True if self.user_type == 1 else False
-    
-    def is_manager(self):
-        return True if self.user_type == 2 else False
-
-    class Meta:
-        abstract = True

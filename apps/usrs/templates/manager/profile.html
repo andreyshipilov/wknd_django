@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+	<p>Manager: {{ user }}</p>
+	{% if profile.has_place %}
+		<p>Place: {{ place }}</p>
+	{% else %}
+		<p>No place assigned</p>
+	{% endif %}
+{% endblock %}

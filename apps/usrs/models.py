@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.core.exceptions import ValidationError
 
 from annoying.fields import AutoOneToOneField
 import datetime
@@ -30,16 +31,22 @@ class Profile(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        if self.is_regular():
+        if self.is_regular:
             return ('regular_profile',)
-        if self.is_manager():
+        if self.is_manager:
             return ('manager_profile',)
-    
+
+    @property
     def is_regular(self):
         return True if self.user_type == 1 else False
-    
+
+    @property
     def is_manager(self):
         return True if self.user_type == 2 else False
+
+    @property
+    def has_place(self):
+        return True if self.manager_of else False
 
     def activation_key_expired(self):
         """

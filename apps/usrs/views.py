@@ -64,7 +64,12 @@ def regular_profile(request):
 @manager_user_required
 def manager_profile(request):
     user = request.user
+    place = user.profile.manager_of
 
-    extra_context = {}
+    extra_context = {
+        'place': place,
+        'user': user,
+        'profile': user.profile,
+    }
 
     return render(request, 'manager/profile.html', extra_context)
