@@ -18,7 +18,7 @@
 		<h3>Upcoming events</h3>
 		<ul>
 			{% for i in future_events %}
-				<li>{{ i.title }} - Resign</li>
+				<li><a href="{{ i.get_absolute_url }}">{{ i.title }}</a> - Resign</li>
 			{% endfor %}
 		</ul>
 	{% endif %}
