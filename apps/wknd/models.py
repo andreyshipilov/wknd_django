@@ -16,13 +16,12 @@ class Place(models.Model):
     """
     A club, a theater or any other place where an even can be held.
     """
-
     # Common textual info.
     title = models.CharField(max_length=100)
     description = models.TextField(blank=True,)
     slug = models.SlugField()
     link = models.URLField()
-    
+
     # city = models.CharField(max_length=100)
     address = models.CharField(max_length=200)
     coords_lat = models.DecimalField(max_digits=20, decimal_places=17, blank=True,)
@@ -31,11 +30,14 @@ class Place(models.Model):
     # Place manager
     # manager = models.ForeignKey(Manager)
 
-    # logo = 
-    # image = 
+    # logo =
+    # image =
 
     def __unicode__(self):
         return self.title
+
+    def has_manager(self):
+        return True if self.profile else False
 
 class Genre(models.Model):
     """
@@ -49,7 +51,7 @@ class Genre(models.Model):
 
     def __unicode__(self):
         return self.title
-    
+
 
 """
 Main models
@@ -67,7 +69,7 @@ class Event(models.Model):
     # Just a common title and text info.
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True,)
-    
+
     # genre = models.ForeignKey(Genre).
 
     # Could be a link to an official page.
@@ -77,12 +79,12 @@ class Event(models.Model):
     slug = models.SlugField(max_length=250,
                             unique_for_date="date_time",
                             blank=True,)
-    
-    # image = 
+
+    # image =
 
     # Official price set.
     entry_price = models.DecimalField(max_digits=10, decimal_places=2,)
-    
+
     # Price taken by list.
     entry_price_by_list = models.DecimalField(max_digits=10, decimal_places=2,)
 
@@ -107,8 +109,8 @@ class Event(models.Model):
         Overriding save to automatically generate slug.
         """
         self.slug = "%s-on-%s" % (slugify(self.title),
-                                        self.date_time.strftime("%B-%d-%Y")
-                                        .lower())
+                                  self.date_time.strftime("%B-%d-%Y")
+                                  .lower())
         models.Model.save(self, *args, **kwargs)
 
     @models.permalink
@@ -132,7 +134,7 @@ class Event(models.Model):
     def starts_today(self):
         return True if self.date_time.date() == \
             datetime.today().date() else False
-    
+
     @property
     def starts_tomorrow(self):
         return True if self.date_time.date() == \
@@ -153,7 +155,7 @@ class Event(models.Model):
         if user_applied_per_day < settings.APPLICATION_PER_DAY_LIMIT:
             return True
         return False
-    
+
     def user_can_apply_this(self, user):
         """
         Check if user can apply for this particular event.
@@ -166,7 +168,7 @@ class Event(models.Model):
     def apply_user(self, user):
         if self.user_can_apply:
             self.applied_users.add(user)
-        
+
     def user_can_resign_this(self, user):
         """
         Check if user can resign this particular event.
@@ -176,7 +178,7 @@ class Event(models.Model):
             return True
         else:
             return False
-    
+
     def resign_user(self, user):
         if self.user_can_resign_this:
             self.applied_users.remove(user)
