@@ -63,7 +63,7 @@ def regular_profile(request):
 @login_required(redirect_field_name=None)
 @manager_user_required
 def manager_profile(request):
-    user, place = request.user, user.profile.manager_of
+    user, place = request.user, request.user.profile.manager_of
     extra_context = {
         'place': place,
         'user': user,
