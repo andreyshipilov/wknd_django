@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import auth
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, render_to_response
 from django.template import RequestContext
 from django.views.decorators.cache import never_cache
@@ -39,7 +39,8 @@ def login(request):
                 # Redirect to profile.
                 return HttpResponseRedirect(user.profile.get_absolute_url())
             else:
-                pass # TODO: Give link to resend activation.
+                pass
+                # TODO: Give link to resend activation.
     else:
         form = AuthenticationForm()
 
@@ -54,7 +55,6 @@ def login(request):
 @regular_user_required
 def regular_profile(request):
     user = request.user
-
     extra_context = {}
 
     return render(request, 'regular/profile.html', extra_context)
@@ -63,9 +63,7 @@ def regular_profile(request):
 @login_required(redirect_field_name=None)
 @manager_user_required
 def manager_profile(request):
-    user = request.user
-    place = user.profile.manager_of
-
+    user, place = request.user, user.profile.manager_of
     extra_context = {
         'place': place,
         'user': user,

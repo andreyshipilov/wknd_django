@@ -12,7 +12,6 @@ import settings
 class Profile(models.Model):
     """
     Base user Profile model.
-
     """
     user = AutoOneToOneField(User, primary_key=True,)
     activation_key = models.CharField(max_length=40, blank=True,)
@@ -51,7 +50,6 @@ class Profile(models.Model):
     def activation_key_expired(self):
         """
         Checks if activation key is expired.
-
         """
         expiration_days = datetime.timedelta(days=settings.ACTIVATION_DAYS)
         return self.activation_key == settings.ACTIVATED or \
