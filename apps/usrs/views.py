@@ -9,7 +9,7 @@ from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 
 from .decorators import regular_user_required, manager_user_required
-
+from wknd.models import Event
 
 @csrf_protect
 def register(request):
@@ -55,19 +55,43 @@ def login(request):
 @regular_user_required
 def regular_profile(request):
     user = request.user
-    extra_context = {}
+    favourites = user.profile.favourite_places.all()
+    future_events = user.profile.get_future_events()
+    passed_events = user.profile.get_passed_events()
+
+    extra_context = {
+        'user': user,
+        'favourites': favourites,
+        'future_events': future_events,
+        'passed_events': passed_events,
+    }
 
     return render(request, 'regular/profile.html', extra_context)
 
 
 @login_required(redirect_field_name=None)
+@regular_user_required
+def regular_profile_edit(request):
+    user = request.user
+
+    extra_context = {
+        'user': user,
+    }
+
+    return render(request, 'regular/profile_edit.html', extra_context)
+
+
+@login_required(redirect_field_name=None)
 @manager_user_required
 def manager_profile(request):
-    user, place = request.user, request.user.profile.manager_of
+    user = request.user
+    profile = user.profile
+    place = profile.manager_of
+
     extra_context = {
         'place': place,
         'user': user,
-        'profile': user.profile,
+        'profile': profile,
     }
 
     return render(request, 'manager/profile.html', extra_context)

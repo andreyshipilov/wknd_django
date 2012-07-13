@@ -26,10 +26,10 @@ class ProfileAdminForm(forms.ModelForm):
 
         # Check if manager is not chosen assigned for a taken place.
         if data.get('user', None) and data.get('manager_of', None):
-            if data.get('manager_of').has_manager and \
-            (data.get('manager_of').profile.user != data.get('user', None)):
-                raise forms.ValidationError('Chosen place already has a \
-                      manager: %s.' % data.get('manager_of').profile.user)
+            if data.get('manager_of').has_manager:
+                if (data.get('manager_of').profile.user != data.get('user', None)):
+                    raise forms.ValidationError('Chosen place already has a \
+                          manager: %s.' % data.get('manager_of').profile.user)
         return data['manager_of']
 
 class ProfileAdmin(admin.ModelAdmin):

@@ -1,11 +1,10 @@
-from datetime import datetime, timedelta
-
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 import settings
 
-from userena.models import UserenaLanguageBaseProfile, UserenaBaseProfile
+from annoying.functions import get_object_or_None
+from datetime import datetime, timedelta
 from pytils.translit import slugify
 
 
@@ -33,11 +32,22 @@ class Place(models.Model):
     # logo =
     # image =
 
+    class Meta:
+        ordering = ('title',)
+
     def __unicode__(self):
         return self.title
 
+    @property
     def has_manager(self):
-        return True if self.profile else False
+        """
+        Checks if Place has a profiile assigned as Manager.
+        """
+        # Local import to prevent recursive import.
+        from usrs.models import Profile
+        profile = get_object_or_None(Profile, manager_of=self)
+        return True if profile else False
+
 
 class Genre(models.Model):
     """
@@ -123,7 +133,7 @@ class Event(models.Model):
         """
         Return only actual events. Event date should be greater than now.
         """
-        return Event.objects.filter(date_time__gte=datetime.now())\
+        return Event.objects.filter(date_time__gt=datetime.now())\
                     .select_related()
 
     # How many places left on the list.

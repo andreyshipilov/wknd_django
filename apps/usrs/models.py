@@ -3,9 +3,9 @@ from django.db import models
 from django.core.exceptions import ValidationError
 
 from annoying.fields import AutoOneToOneField
-import datetime
+from datetime import datetime, timedelta
 
-from wknd.models import Place
+from wknd.models import Event, Place
 import settings
 
 
@@ -21,7 +21,7 @@ class Profile(models.Model):
                                             default=1, db_index=True,)
     # Regular user fields.
     favourite_places = models.ManyToManyField(Place, blank=True,
-                                                   related_name='favourites',)
+                                related_name='%(app_label)s_%(class)s_related',)
     # Place manager fields.
     manager_of = models.OneToOneField(Place, blank=True, null=True,)
 
@@ -43,15 +43,17 @@ class Profile(models.Model):
     def is_manager(self):
         return True if self.user_type == 2 else False
 
-    @property
-    def has_place(self):
-        return True if self.manager_of else False
+    def get_future_events(self):
+        return self.user.event_set.filter(date_time__gt=datetime.now())
+
+    def get_passed_events(self):
+        return self.user.event_set.filter(date_time__lte=datetime.now())
 
     def activation_key_expired(self):
         """
         Checks if activation key is expired.
         """
-        expiration_days = datetime.timedelta(days=settings.ACTIVATION_DAYS)
+        expiration_days = timedelta(days=settings.ACTIVATION_DAYS)
         return self.activation_key == settings.ACTIVATED or \
                (self.user.date_joined + expiration_date <= datetime_now())
     activation_key_expired.boolean = True

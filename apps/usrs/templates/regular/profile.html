@@ -2,5 +2,33 @@
 
 
 {% block content %}
-	<p>{{ user }}</p>
+	<h1>{{ user }}</h1>
+	<p><a href="{% url regular_profile_edit %}">Edit profile</a></p>
+
+	{% if favourites %}
+		<h3>Favourite places</h3>
+		<ul>
+			{% for i in favourites %}
+				<li>{{ i.title }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	{% if future_events %}
+		<h3>Upcoming events</h3>
+		<ul>
+			{% for i in future_events %}
+				<li>{{ i.title }} - Resign</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	{% if passed_events %}
+		<h3>Passed events</h3>
+		<ul>
+			{% for i in passed_events %}
+				<li>{{ i.title }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 {% endblock %}

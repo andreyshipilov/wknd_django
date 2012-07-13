@@ -8,7 +8,11 @@ urlpatterns = patterns('',
     url(r'^login/$', 'usrs.views.login', name='login'),
     url(r'^logout/$', logout, {'template_name': 'logout.html', 'next_page': '/'}, name='logout'),
 
+    # Regular user urls.
     url(r'^me/$', 'usrs.views.regular_profile', name='regular_profile'),
+    url(r'^me/edit/$', 'usrs.views.regular_profile_edit', name='regular_profile_edit'),
+
+    # Place manager urls.
     url(r'^manager/$', 'usrs.views.manager_profile', name='manager_profile'),
 )
 
@@ -56,7 +60,7 @@ urlpatterns = patterns('',
        userena_views.direct_to_user_template,
        {'template_name': 'userena/password_complete.html'},
        name='userena_password_change_complete'),
-       
+
     # Edit profile
     # url(r'^(?P<username>[\.\w]+)/edit/$',
     #   userena_views.profile_edit,
