@@ -56,69 +56,10 @@ def login(request):
     return render(request, 'login.html', extra_context)
 
 
-"""
-@login_required(redirect_field_name=None)
-@regular_user_required
-def regular_profile(request):
-    user = request.user
-    favourites = user.profile.favourite_places.all()
-    future_events = user.profile.get_future_events()
-    passed_events = user.profile.get_passed_events()
-
-    extra_context = {
-        'user': user,
-        'favourites': favourites,
-        'future_events': future_events,
-        'passed_events': passed_events,
-    }
-
-    return render(request, 'regular/profile.html', extra_context)
-
-@login_required(redirect_field_name=None)
-@regular_user_required
-def regular_profile_edit(request):
-    user_object = request.user
-    profile = user_object.get_profile()
-    user_initial = {
-        'first_name': user_object.first_name,
-        'last_name': user_object.last_name,
-    }
-    extra_context = {}
-
-    if request.method == 'POST':
-        form = RegularUserEditProfileForm(instance=user_object, data=request.POST)
-        if form.is_valid():
-            form.save()
-            extra_context.update({
-                'form': form,
-            })
-            return render(request, 'regular/profile_edit.html', extra_context)
-    else:
-        form = RegularUserEditProfileForm()
-    extra_context.update({
-        'form': form,
-    })
-
-    return render(request, 'regular/profile_edit.html', extra_context)
-
-
-@login_required(redirect_field_name=None)
-@manager_user_required
-def manager_profile(request):
-    user = request.user
-    profile = user.profile
-    place = profile.manager_of
-
-    extra_context = {
-        'place': place,
-        'user': user,
-        'profile': profile,
-    }
-
-    return render(request, 'manager/profile.html', extra_context)
-"""
-
 class RegularProfile(DetailView):
+    """
+    Regular user view.
+    """
     template_name = 'regular/profile.html'
     model = Profile
 
@@ -137,7 +78,11 @@ class RegularProfile(DetailView):
         context['passed_events'] = self.get_object().profile.get_passed_events()
         return context
 
+
 class RegularEditProfile(UpdateView):
+    """
+    Regular user edit profile view.
+    """
     template_name = 'regular/profile_edit.html'
     model = auth.models.User
     form_class = RegularEditProfileForm
@@ -157,6 +102,9 @@ class RegularEditProfile(UpdateView):
 
 
 class ManagerProfile(DetailView):
+    """
+    Manager profile view.
+    """
     template_name = 'manager/profile.html'
     model = Profile
 
