@@ -1,4 +1,4 @@
-{% spaceless %}<!doctype html>
+{# spaceless #}<!doctype html>
 <html>
 	<head>
 		<title></title>
@@ -6,11 +6,11 @@
 	</head>
 	<body>
 		{% if user.is_authenticated %}
-			<p>Welcome, <a href="{{ user.profile.get_absolute_url }}">{{ user.username }}</a>. Thanks for logging in. <a href="{% url logout %}">Logout</a></p>
+			<p>Welcome, <a href="{{ request.user.profile.get_absolute_url }}">{{ request.user.username }}</a>. Thanks for logging in. <a href="{% url logout %}">Logout</a></p>
 		{% else %}
 			<p>Welcome, new user. Please <a href="{% url login %}">log in</a>. <a href="{% url register %}">Or register</a>,</p>
 		{% endif %}
 
 		{% block content %}{% endblock %}
 	</body>
-</html>{% endspaceless %}
+</html>{# endspaceless #}

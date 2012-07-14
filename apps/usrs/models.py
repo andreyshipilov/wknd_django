@@ -44,10 +44,10 @@ class Profile(models.Model):
         return True if self.user_type == 2 else False
 
     def get_future_events(self):
-        return self.user.event_set.filter(date_time__gt=datetime.now())
+        return self.user.event_set.select_related().filter(date_time__gt=datetime.now())
 
     def get_passed_events(self):
-        return self.user.event_set.filter(date_time__lte=datetime.now())
+        return self.user.event_set.select_related().filter(date_time__lte=datetime.now())
 
     def activation_key_expired(self):
         """

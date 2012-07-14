@@ -43,7 +43,7 @@ MEDIA_ROOT = '%s/media/' % PROJECT_DIR
 MEDIA_URL = '/media/'
 STATIC_ROOT = '%s/static/' % PROJECT_DIR
 STATIC_URL = '/static/'
-ADMIN_MEDIA_PREFIX = '/static/admin/'
+#ADMIN_MEDIA_PREFIX = '/static/admin/'
 STATICFILES_DIRS = (
 )
 STATICFILES_FINDERS = (
@@ -64,11 +64,11 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     #'userena.middleware.UserenaLocaleMiddleware',
 )
 
-ROOT_URLCONF = 'wknd_crew.urls'
+ROOT_URLCONF = 'urls'
 
 TEMPLATE_DIRS = (
     '%s/templates' % PROJECT_DIR,
