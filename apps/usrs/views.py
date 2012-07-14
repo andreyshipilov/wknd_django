@@ -84,7 +84,6 @@ class RegularEditProfile(UpdateView):
     Regular user edit profile view.
     """
     template_name = 'regular/profile_edit.html'
-    model = auth.models.User
     form_class = RegularEditProfileForm
     success_url = reverse_lazy('regular_profile_edit')
 

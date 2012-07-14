@@ -10,8 +10,8 @@ class RegularEditProfileForm(forms.ModelForm):
     """
     Regular user profile edit form.
     """
-    # Make all fields required
     def __init__(self, *args, **kwargs):
+        # Make all fields required
         super(RegularEditProfileForm, self).__init__(*args, **kwargs)
         self.fields['email'].required = True
         self.fields['last_name'].required = True
