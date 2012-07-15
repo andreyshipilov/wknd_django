@@ -2,21 +2,23 @@ from django.conf.urls.defaults import *
 from django.contrib.auth.views import logout
 from django.core.urlresolvers import reverse_lazy
 
-from .views import (RegularProfile, RegularProfileEdit, ManagerProfile,)
+from .views import (LoginView,
+                    RegularProfileView, RegularProfileEditView,
+                    ManagerProfileView,)
 
 
 urlpatterns = patterns('',
     url(r'^register/$', 'usrs.views.register', name='register'),
-    url(r'^login/$', 'usrs.views.login', name='login'),
+    url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', logout, {'template_name': 'logout.html',
                                'next_page': reverse_lazy('home')}, name='logout'),
 
     # Regular user urls.
-    url(r'^me/$', RegularProfile.as_view(), name='regular_profile'),
-    url(r'^me/edit/$', RegularProfileEdit.as_view(), name='regular_profile_edit'),
+    url(r'^me/$', RegularProfileView.as_view(), name='regular_profile'),
+    url(r'^me/edit/$', RegularProfileEditView.as_view(), name='regular_profile_edit'),
 
     # Place manager urls.
-    url(r'^manager/$', ManagerProfile.as_view(), name='manager_profile'),
+    url(r'^manager/$', ManagerProfileView.as_view(), name='manager_profile'),
 )
 
 

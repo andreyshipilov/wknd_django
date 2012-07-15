@@ -9,7 +9,7 @@ from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
-from django.views.generic.edit import UpdateView
+from django.views.generic.edit import UpdateView, FormView
 from django.views.generic.detail import DetailView
 
 from .decorators import regular_user_required, manager_user_required
@@ -23,42 +23,29 @@ def register(request):
     pass
 
 
-@csrf_protect
-@never_cache
-def login(request):
-    # Prevent access to login.
-    if request.user.is_authenticated():
-        # Redirect to profile.
-        return HttpResponseRedirect(request.user.profile.get_absolute_url())
+class LoginView(FormView):
+    """
+    Class based login view..
+    """
+    form_class = AuthenticationForm
+    template_name = 'login.html'
+    success_url = reverse_lazy('home')
 
-    if request.method == 'POST':
-        form = AuthenticationForm(data=request.POST)
-        if form.is_valid():
-            username, password = (form.cleaned_data['username'],
-                                  form.cleaned_data['password'])
-            user = auth.authenticate(username=username,
-                                password=password)
-            if user.is_active:
-                # If active - login.
-                auth.login(request, user)
-                # Set cookie for 30 days.
-                request.session.set_expiry(60 * 60 * 24 * 30)
-                # Redirect to profile.
-                return HttpResponseRedirect(user.profile.get_absolute_url())
-            else:
-                pass
-                # TODO: Give link to resend activation.
-    else:
-        form = AuthenticationForm()
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        # Redirect to profile if is authenticated.
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(request.user.profile.get_absolute_url())
+        return super(LoginView, self).dispatch(request, *args, **kwargs)
 
-    extra_context = {
-        'form': form,
-    }
-
-    return render(request, 'login.html', extra_context)
+    def form_valid(self, form):
+        auth.login(self.request, form.get_user())
+        self.request.session.set_expiry(60 * 60 * 24 * 30)
+        return HttpResponseRedirect(self.request.user.profile.get_absolute_url())
 
 
-class RegularProfile(DetailView):
+class RegularProfileView(DetailView):
     """
     Regular user view.
     """
@@ -68,20 +55,20 @@ class RegularProfile(DetailView):
     @method_decorator(login_required(redirect_field_name=None))
     @method_decorator(regular_user_required)
     def dispatch(self, *args, **kwargs):
-        return super(RegularProfile, self).dispatch(*args, **kwargs)
+        return super(RegularProfileView, self).dispatch(*args, **kwargs)
 
     def get_object(self, queryset=None):
         return self.request.user
 
     def get_context_data(self, **kwargs):
-        context = super(RegularProfile, self).get_context_data(**kwargs)
+        context = super(RegularProfileView, self).get_context_data(**kwargs)
         context['favourites'] = self.get_object().profile.favourite_places.all()
         context['future_events'] = self.get_object().profile.get_future_events()
         context['passed_events'] = self.get_object().profile.get_passed_events()
         return context
 
 
-class RegularProfileEdit(UpdateView):
+class RegularProfileEditView(UpdateView):
     """
     Regular user edit profile view.
     """
@@ -92,7 +79,7 @@ class RegularProfileEdit(UpdateView):
     @method_decorator(login_required(redirect_field_name=None))
     @method_decorator(regular_user_required)
     def dispatch(self, *args, **kwargs):
-        return super(RegularProfileEdit, self).dispatch(*args, **kwargs)
+        return super(RegularProfileEditView, self).dispatch(*args, **kwargs)
 
     def get_object(self, queryset=None):
         return Profile.objects.get(user=self.request.user).user
@@ -106,7 +93,7 @@ class RegularProfileEdit(UpdateView):
         return HttpResponseRedirect(self.get_success_url())
 
 
-class ManagerProfile(DetailView):
+class ManagerProfileView(DetailView):
     """
     Manager profile view.
     """
@@ -116,12 +103,12 @@ class ManagerProfile(DetailView):
     @method_decorator(login_required(redirect_field_name=None))
     @method_decorator(manager_user_required)
     def dispatch(self, *args, **kwargs):
-        return super(ManagerProfile, self).dispatch(*args, **kwargs)
+        return super(ManagerProfileView, self).dispatch(*args, **kwargs)
 
     def get_object(self, queryset=None):
         return self.request.user
 
     def get_context_data(self, **kwargs):
-        context = super(ManagerProfile, self).get_context_data(**kwargs)
+        context = super(ManagerProfileView, self).get_context_data(**kwargs)
         # Events added
         return context
