@@ -3,8 +3,8 @@
 
 {% block content %}
 	<p>Manager: {{ user }}</p>
-	{% if profile.has_place %}
-		<p>Place: {{ place }}</p>
+	{% if user.profile.manager_of %}
+		<p>Place: {{ user.profile.manager_of }}</p>
 	{% else %}
 		<p>No place assigned</p>
 	{% endif %}

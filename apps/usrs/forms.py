@@ -13,10 +13,11 @@ class RegularEditProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         # Make all fields required
         super(RegularEditProfileForm, self).__init__(*args, **kwargs)
+        self.fields['username'].help_text = None
         self.fields['email'].required = True
         self.fields['last_name'].required = True
         self.fields['first_name'].required = True
 
     class Meta:
         model = User
-        fields = ('username', 'last_name', 'first_name', 'email')
+        fields = ('first_name', 'last_name', 'username',  'email', 'password',)

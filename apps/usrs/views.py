@@ -1,5 +1,6 @@
 from django.core.urlresolvers import reverse_lazy
 from django.contrib import auth
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.http import HttpResponseRedirect, Http404
@@ -83,21 +84,17 @@ class RegularEditProfile(UpdateView):
     """
     Regular user edit profile view.
     """
-    template_name = 'regular/profile_edit.html'
     form_class = RegularEditProfileForm
+    template_name = 'regular/profile_edit.html'
     success_url = reverse_lazy('regular_profile_edit')
 
     @method_decorator(login_required(redirect_field_name=None))
     @method_decorator(regular_user_required)
-    def get(self, request, **kwargs):
-        self.object = request.user
-        form_class = self.get_form_class()
-        form = self.get_form(form_class)
-        context = self.get_context_data(object=self.object, form=form)
-        return self.render_to_response(context)
+    def dispatch(self, *args, **kwargs):
+        return super(RegularEditProfile, self).dispatch(*args, **kwargs)
 
     def get_object(self, queryset=None):
-        return self.request.user
+        return Profile.objects.get(user=self.request.user).user
 
 
 class ManagerProfile(DetailView):
