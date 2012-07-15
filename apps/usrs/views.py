@@ -13,9 +13,10 @@ from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
 
 from .decorators import regular_user_required, manager_user_required
-from .forms import RegularEditProfileForm
+from .forms import RegularProfileEditForm
 from .models import Profile
 from wknd.models import Event
+
 
 @csrf_protect
 def register(request):
@@ -80,21 +81,29 @@ class RegularProfile(DetailView):
         return context
 
 
-class RegularEditProfile(UpdateView):
+class RegularProfileEdit(UpdateView):
     """
     Regular user edit profile view.
     """
-    form_class = RegularEditProfileForm
+    form_class = RegularProfileEditForm
     template_name = 'regular/profile_edit.html'
     success_url = reverse_lazy('regular_profile_edit')
 
     @method_decorator(login_required(redirect_field_name=None))
     @method_decorator(regular_user_required)
     def dispatch(self, *args, **kwargs):
-        return super(RegularEditProfile, self).dispatch(*args, **kwargs)
+        return super(RegularProfileEdit, self).dispatch(*args, **kwargs)
 
     def get_object(self, queryset=None):
         return Profile.objects.get(user=self.request.user).user
+
+    def form_valid(self, form):
+        data = form.cleaned_data
+        if data['password']:
+            user = self.get_object()
+            user.set_password(data['password'])
+            user.save()
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class ManagerProfile(DetailView):

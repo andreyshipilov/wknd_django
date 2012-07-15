@@ -2,7 +2,7 @@
 
 
 {% block content %}
-	<h1>{{ request.user.username }}</h1>{{ USERNAME }}
+	<h1>{{ request.user.username }}</h1>
 	<form method="post" action="{% url regular_profile_edit %}">
 		{% csrf_token %}
 		{{ form.as_p }}

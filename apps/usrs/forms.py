@@ -6,18 +6,25 @@ from .models import Profile
 from .utils import get_profile_model
 
 
-class RegularEditProfileForm(forms.ModelForm):
+class RegularProfileEditForm(forms.ModelForm):
     """
     Regular user profile edit form.
     """
+    password = forms.CharField(label=_("New password"),
+                               widget=forms.PasswordInput(render_value=False),
+                               required=False, min_length=3)
+
     def __init__(self, *args, **kwargs):
         # Make all fields required
-        super(RegularEditProfileForm, self).__init__(*args, **kwargs)
+        super(RegularProfileEditForm, self).__init__(*args, **kwargs)
         self.fields['username'].help_text = None
         self.fields['email'].required = True
         self.fields['last_name'].required = True
         self.fields['first_name'].required = True
+        #self.fields['password'].widget = forms.widgets.PasswordInput()
+        #self.fields['password'].label = "New password"
+        #self.fields['password'].blank = True
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'username',  'email', 'password',)
+        fields = ('first_name', 'last_name', 'username',  'email',)
