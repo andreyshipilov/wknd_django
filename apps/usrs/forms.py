@@ -21,9 +21,6 @@ class RegularProfileEditForm(forms.ModelForm):
         self.fields['email'].required = True
         self.fields['last_name'].required = True
         self.fields['first_name'].required = True
-        #self.fields['password'].widget = forms.widgets.PasswordInput()
-        #self.fields['password'].label = "New password"
-        #self.fields['password'].blank = True
 
     class Meta:
         model = User
