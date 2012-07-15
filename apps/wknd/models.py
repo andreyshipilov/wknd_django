@@ -133,8 +133,8 @@ class Event(models.Model):
         """
         Return only actual events. Event date should be greater than now.
         """
-        return Event.objects.filter(date_time__gt=datetime.now())\
-                    .select_related()
+        return Event.objects.select_related().\
+                     filter(date_time__gt=datetime.now())
 
     # How many places left on the list.
     def get_spare_places(self):

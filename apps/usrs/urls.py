@@ -2,13 +2,13 @@ from django.conf.urls.defaults import *
 from django.contrib.auth.views import logout
 from django.core.urlresolvers import reverse_lazy
 
-from .views import (LoginView,
+from .views import (RegistrationView, LoginView,
                     RegularProfileView, RegularProfileEditView,
                     ManagerProfileView,)
 
 
 urlpatterns = patterns('',
-    url(r'^register/$', 'usrs.views.register', name='register'),
+    url(r'^register/$', RegistrationView.as_view(), name='registration'),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^logout/$', logout, {'template_name': 'logout.html',
                                'next_page': reverse_lazy('home')}, name='logout'),

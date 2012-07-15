@@ -5,6 +5,7 @@ from annoying.functions import get_object_or_None
 
 from .models import *
 
+
 class ProfileAdminForm(forms.ModelForm):
     """
     Change the admin view to handle some Place/Manger relations.

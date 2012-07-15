@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from annoying.fields import AutoOneToOneField
 from datetime import datetime, timedelta
 
+from .managers import ProfileManager
 from wknd.models import Event, Place
 import settings
 
@@ -24,6 +25,9 @@ class Profile(models.Model):
                                 related_name='%(app_label)s_%(class)s_related',)
     # Place manager fields.
     manager_of = models.OneToOneField(Place, blank=True, null=True,)
+
+    # Manager overload
+    objects = ProfileManager()
 
     def __unicode__(self):
         return 'Profile for %s' % self.user

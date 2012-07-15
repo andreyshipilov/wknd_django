@@ -3,15 +3,13 @@
 {% block head_addon %}
 {% endblock %}
 
-{% block body_content %}
+{% block content %}
 	<form action="{% url registration %}" method="post">
 		{% csrf_token %}
-		<p>
-			<input type="text" name="username" value="" />
-			<input type="password" name="password" value="" />
-		</p>
+		{{ form.as_p }}
 		<input type="submit" value="Send" />
 	</form>
+
 	{% if registration_failed %}
 		<p>Registration failed.</p>
 	{% endif %}

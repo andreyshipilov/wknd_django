@@ -13,19 +13,36 @@ from django.views.generic.edit import UpdateView, FormView
 from django.views.generic.detail import DetailView
 
 from .decorators import regular_user_required, manager_user_required
-from .forms import RegularProfileEditForm
+from .forms import RegistrationForm, RegularProfileEditForm
 from .models import Profile
 from wknd.models import Event
 
 
-@csrf_protect
-def register(request):
-    pass
+class RegistrationView(FormView):
+    """
+    New user register view.
+    """
+    form_class = RegistrationForm
+    template_name = 'registration.html'
+    success_url = reverse_lazy('home')
+
+    @method_decorator(csrf_protect)
+    @method_decorator(never_cache)
+    def dispatch(self, request, *args, **kwargs):
+        # Redirect to profile if is authenticated.
+        if request.user.is_authenticated():
+            return HttpResponseRedirect(request.user.profile.get_absolute_url())
+        return super(RegistrationView, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        #data = form.cleaned_data
+        #data.email =
+        return HttpResponseRedirect(self.get_success_url())
 
 
 class LoginView(FormView):
     """
-    Class based login view..
+    Class based login view.
     """
     form_class = AuthenticationForm
     template_name = 'login.html'
@@ -54,8 +71,8 @@ class RegularProfileView(DetailView):
 
     @method_decorator(login_required(redirect_field_name=None))
     @method_decorator(regular_user_required)
-    def dispatch(self, *args, **kwargs):
-        return super(RegularProfileView, self).dispatch(*args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        return super(RegularProfileView, self).dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         return self.request.user
@@ -78,18 +95,19 @@ class RegularProfileEditView(UpdateView):
 
     @method_decorator(login_required(redirect_field_name=None))
     @method_decorator(regular_user_required)
-    def dispatch(self, *args, **kwargs):
-        return super(RegularProfileEditView, self).dispatch(*args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        return super(RegularProfileEditView, self).dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         return Profile.objects.get(user=self.request.user).user
 
     def form_valid(self, form):
         data = form.cleaned_data
+        user = self.get_object()
+        user.email = data['email'].lower()
         if data['password']:
-            user = self.get_object()
             user.set_password(data['password'])
-            user.save()
+        user.save()
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -102,8 +120,8 @@ class ManagerProfileView(DetailView):
 
     @method_decorator(login_required(redirect_field_name=None))
     @method_decorator(manager_user_required)
-    def dispatch(self, *args, **kwargs):
-        return super(ManagerProfileView, self).dispatch(*args, **kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ManagerProfileView, self).dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         return self.request.user
