@@ -1,5 +1,5 @@
-import sys
 from os.path import join, abspath, dirname
+import sys
 
 
 # This directory.
@@ -8,6 +8,7 @@ PROJECT_DIR = dirname(__file__)
 # Paths to add on os.path
 PATHS = (
     abspath(join(PROJECT_DIR, 'apps')),
+    abspath(join(PROJECT_DIR, 'apps_dependent')),
     abspath(join(PROJECT_DIR, '../_APPS'))
 )
 [sys.path.insert(0, i) if i not in sys.path else None for i in PATHS]
@@ -84,7 +85,8 @@ INSTALLED_APPS = (
 
     'south',
     #'social_auth',
-    'easy_thumbnails',
+    #'easy_thumbnails',
+    'sorl.thumbnail',
     'debug_toolbar',
 
     'wknd',

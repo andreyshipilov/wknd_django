@@ -14,7 +14,8 @@ class RegistrationForm(forms.ModelForm):
     username = forms.RegexField(regex=r'^[\.\w]+$', max_length=30, label=_("Username"),
                                 error_messages={'invalid': _('Username must contain only letters, numbers, dots and underscores.')})
     email = forms.EmailField(label=_("Email"), max_length=75)
-    password = forms.CharField(label=_("Password"), min_length=3)
+    password = forms.CharField(label=_("Password"), min_length=3,
+                               widget=forms.PasswordInput(render_value=True))
 
     def __init__(self, *args, **kwargs):
         # Make all fields required
@@ -57,7 +58,8 @@ class RegistrationForm(forms.ModelForm):
         data = self.cleaned_data
         username, email, password = data['username'], data['email'].lower(), data['password']
         first_name, last_name = data['first_name'], data['last_name']
-        #new_user = Profile.objects.create_user(username, email, password, first_name, last_name)
+        #new_user = Profile.objects.create_user(username, email, password,
+        #                                       first_name, last_name)
         return new_user
 
 
@@ -65,9 +67,8 @@ class RegularProfileEditForm(forms.ModelForm):
     """
     Regular user profile edit form.
     """
-    password = forms.CharField(label=_("New password"),
-                               widget=forms.PasswordInput(render_value=False),
-                               required=False, min_length=3)
+    password = forms.CharField(label=_("New password"), required=False,
+                               min_length=3, widget=forms.PasswordInput())
 
     def __init__(self, *args, **kwargs):
         # Make all fields required
