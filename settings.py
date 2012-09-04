@@ -8,7 +8,6 @@ PROJECT_DIR = dirname(__file__)
 # Paths to add on os.path
 PATHS = (
     abspath(join(PROJECT_DIR, 'apps')),
-    abspath(join(PROJECT_DIR, 'apps_dependent')),
     abspath(join(PROJECT_DIR, '../_APPS'))
 )
 [sys.path.insert(0, i) if i not in sys.path else None for i in PATHS]
