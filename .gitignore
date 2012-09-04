@@ -2,4 +2,5 @@
 *.pyo
 *.so
 *.o
-apps_dependent/*
+sorl-thumbnail
+django
