@@ -2,4 +2,4 @@
 *.pyo
 *.so
 *.o
-apps_dependent
+apps_dependent/*
