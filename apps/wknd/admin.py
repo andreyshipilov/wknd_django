@@ -9,11 +9,11 @@ class PlaceAdmin(admin.ModelAdmin):
 admin.site.register(Place, PlaceAdmin)
 
 
-class EventAdmin(admin.ModelAdmin):
+class VenueAdmin(admin.ModelAdmin):
     # prepopulated_fields = {"slug": ("title",)}
     readonly_fields = ('slug',)
     list_display = ('title', 'place', 'date_time',)
-admin.site.register(Event, EventAdmin)
+admin.site.register(Venue, VenueAdmin)
 
 admin.site.register(Genre)
 

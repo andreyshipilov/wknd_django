@@ -66,15 +66,15 @@ class Genre(models.Model):
 """
 Main models
 """
-class Event(models.Model):
+class Venue(models.Model):
     """
-    An event model.
+    An venue model.
     """
-    # Place where the event is held.
+    # Place where the venue is held.
     place = models.ForeignKey(Place)
 
-    # Actual date and time the event is held on.
-    date_time = models.DateTimeField(verbose_name='Date when event starts')
+    # Actual date and time the venue is held on.
+    date_time = models.DateTimeField(verbose_name='Date when venue starts')
 
     # Just a common title and text info.
     title = models.CharField(max_length=200)
@@ -98,7 +98,7 @@ class Event(models.Model):
     # Price taken by list.
     entry_price_by_list = models.DecimalField(max_digits=10, decimal_places=2,)
 
-    # Date and time until users can apply to an event list.
+    # Date and time until users can apply to an venue list.
     # They should be able to resign at any time.
     date_time_until_can_apply = models.DateTimeField()
 
@@ -125,15 +125,15 @@ class Event(models.Model):
 
     @models.permalink
     def get_absolute_url(self):
-        return ('event', (), {'place_slug': self.place.slug,
-                              'event_slug': self.slug,})
+        return ('venue', (), {'place_slug': self.place.slug,
+                              'venue_slug': self.slug,})
 
     @staticmethod
     def get_current():
         """
-        Return only actual events. Event date should be greater than now.
+        Return only actual venues. Venue date should be greater than now.
         """
-        return Event.objects.select_related().\
+        return Venue.objects.select_related().\
                      filter(date_time__gt=datetime.now())
 
     # How many places left on the list.
@@ -168,9 +168,9 @@ class Event(models.Model):
 
     def user_can_apply_this(self, user):
         """
-        Check if user can apply for this particular event.
+        Check if user can apply for this particular venue.
         """
-        # Return 'True' if user can apply today and haven't applied this event.
+        # Return 'True' if user can apply today and haven't applied this venue.
         if self.user_can_apply(user) and user not in self.applied_users.all():
             return True
         return False
@@ -181,7 +181,7 @@ class Event(models.Model):
 
     def user_can_resign_this(self, user):
         """
-        Check if user can resign this particular event.
+        Check if user can resign this particular venue.
         """
         # Return 'True' if user has already applied.
         if user in self.applied_users.all():

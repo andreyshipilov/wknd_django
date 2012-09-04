@@ -14,19 +14,19 @@
 		</ul>
 	{% endif %}
 
-	{% if future_events %}
-		<h3>Upcoming events</h3>
+	{% if future_venues %}
+		<h3>Upcoming venues</h3>
 		<ul>
-			{% for i in future_events %}
+			{% for i in future_venues %}
 				<li><a href="{{ i.get_absolute_url }}">{{ i.title }}</a> - Resign</li>
 			{% endfor %}
 		</ul>
 	{% endif %}
 
-	{% if passed_events %}
-		<h3>Passed events</h3>
+	{% if passed_venues %}
+		<h3>Passed venues</h3>
 		<ul>
-			{% for i in passed_events %}
+			{% for i in passed_venues %}
 				<li>{{ i.title }}</li>
 			{% endfor %}
 		</ul>

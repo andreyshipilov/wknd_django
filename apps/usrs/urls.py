@@ -32,7 +32,7 @@ urlpatterns = patterns('',
     user favourites edit
 
     manager profile
-    manager add/edit events
+    manager add/edit venues
 """
 
 

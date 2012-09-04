@@ -11,9 +11,9 @@ urlpatterns = patterns('',
     # WKND urls
     url(r'^$', 'wknd.views.home', name='home'),
     url(r'^all-places/$', 'wknd.views.all_places', name='all_places'),
-    url(r'^events/(?P<place_slug>[\w-]+)/(?P<event_slug>[\w-]+)/$', 'wknd.views.event', name='event'),
-    #url(r'^events/(?P<pk>\d+)/apply/$', 'wknd.views.apply_event', name='apply_event'),
-    #url(r'^events/(?P<pk>\d+)/resign/$', 'wknd.views.resign_event', name='resign_event'),
+    url(r'^venues/(?P<place_slug>[\w-]+)/(?P<venue_slug>[\w-]+)/$', 'wknd.views.venue', name='venue'),
+    #url(r'^venues/(?P<pk>\d+)/apply/$', 'wknd.views.apply_venue', name='apply_venue'),
+    #url(r'^venues/(?P<pk>\d+)/resign/$', 'wknd.views.resign_venue', name='resign_venue'),
     
     #url(r'^register/$', 'wknd.views.registration', name='registration'),
     #url(r'^login/$', 'wknd.views.login_view', name='login'),
