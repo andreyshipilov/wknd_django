@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
-import settings
+from django.conf import settings
 
 from annoying.functions import get_object_or_None
 from datetime import datetime, timedelta

@@ -1,5 +1,8 @@
+# -*- coding: utf-8 -*-
+import re, sys
 from os.path import join, abspath, dirname
-import sys
+
+from secret_info import *
 
 
 # This directory.
@@ -8,7 +11,6 @@ PROJECT_DIR = dirname(__file__)
 # Paths to add on os.path
 PATHS = (
     abspath(join(PROJECT_DIR, 'apps')),
-    abspath(join(PROJECT_DIR, '../_APPS'))
 )
 [sys.path.insert(0, i) if i not in sys.path else None for i in PATHS]
 
@@ -23,12 +25,10 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': "%s/wknd.sqlite" % PROJECT_DIR,
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': DATABASE_NAME_USER,
+        'USER': DATABASE_NAME_USER,
+        'PASSWORD': DATABASE_PASSWORD,
     }
 }
 
@@ -62,7 +62,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
-ROOT_URLCONF = 'urls'
+ROOT_URLCONF = 'wknd_project.urls'
 TEMPLATE_DIRS = (
     '%s/templates' % PROJECT_DIR,
 )
@@ -84,7 +84,6 @@ INSTALLED_APPS = (
 
     'south',
     #'social_auth',
-    #'easy_thumbnails',
     'sorl.thumbnail',
     'debug_toolbar',
 
@@ -140,3 +139,10 @@ AUTHENTICATION_BACKENDS = (
 FACEBOOK_APP_ID = '33195800355586500'
 FACEBOOK_API_SECRET = '5a1d9a765db277a6d65457de4cf3e78600'
 """
+
+# Local settings
+try:
+    from local_settings import *
+except ImportError:
+    pass
+

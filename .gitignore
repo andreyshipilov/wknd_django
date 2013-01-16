@@ -1,6 +1,11 @@
 *.pyc
 *.pyo
-*.so
+*.db
+*.mo
 *.o
-sorl-thumbnail
-django
+.DS_Store
+.coverage
+local_settings.py
+secret_info.py
+fabfile.py
+dev.db
