@@ -11,7 +11,7 @@ from pytils.translit import slugify
 """
 Utilitary models
 """
-class Place(models.Model):
+class Venue(models.Model):
     """
     A club, a theater or any other place where an even can be held.
     """
@@ -66,12 +66,12 @@ class Genre(models.Model):
 """
 Main models
 """
-class Venue(models.Model):
+class Event(models.Model):
     """
     An venue model.
     """
     # Place where the venue is held.
-    place = models.ForeignKey(Place)
+    venue = models.ForeignKey(Venue)
 
     # Actual date and time the venue is held on.
     date_time = models.DateTimeField(verbose_name='Date when venue starts')
@@ -133,7 +133,7 @@ class Venue(models.Model):
         """
         Return only actual venues. Venue date should be greater than now.
         """
-        return Venue.objects.select_related().\
+        return Event.objects.select_related().\
                      filter(date_time__gt=datetime.now())
 
     # How many places left on the list.

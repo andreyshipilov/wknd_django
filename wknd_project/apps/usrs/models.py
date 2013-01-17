@@ -6,7 +6,7 @@ from annoying.fields import AutoOneToOneField
 from datetime import datetime, timedelta
 
 from .managers import ProfileManager
-from wknd.models import Venue, Place
+from wknd.models import Venue, Event
 import settings
 
 
@@ -21,10 +21,10 @@ class Profile(models.Model):
     user_type = models.PositiveIntegerField(choices=settings.USER_TYPES,
                                             default=1, db_index=True,)
     # Regular user fields.
-    favourite_places = models.ManyToManyField(Place, blank=True,
+    favourite_venues = models.ManyToManyField(Venue, blank=True,
                                 related_name='%(app_label)s_%(class)s_related',)
-    # Place manager fields.
-    manager_of = models.OneToOneField(Place, blank=True, null=True,)
+    # Venue manager fields.
+    manager_of = models.OneToOneField(Venue, blank=True, null=True,)
 
     # Manager overload
     objects = ProfileManager()

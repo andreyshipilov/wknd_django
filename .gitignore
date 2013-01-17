@@ -8,4 +8,3 @@
 local_settings.py
 secret_info.py
 fabfile.py
-dev.db

@@ -1,7 +1,8 @@
-{# spaceless #}<!doctype html>
+{% spaceless %}<!doctype html>
 <html>
 	<head>
-		<title></title>
+		<title>WKND Crew</title>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		{% block head_addon %}{% endblock %}
 	</head>
 	<body>
@@ -16,6 +17,7 @@
 			<p>Please <a href="{% url login %}">log in</a>. <a href="{% url registration %}">Or register</a>.</p>
 		{% endif %}
 
-		{% block content %}{% endblock %}
+		{% block content %}
+		{% endblock %}
 	</body>
-</html>{# endspaceless #}
+</html>{% endspaceless %}

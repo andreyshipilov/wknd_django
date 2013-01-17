@@ -4,25 +4,25 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 
-from .models import *
+from .models import Venue, Event
 
 
 def home(request):
     context = {
-        'venues': Venue.get_current()
+        'events': Event.get_current()
     }
     return render(request, 'home.html', context)
 
 
-def all_places(request):
+def all_events(request):
     context = {
-        'places': Place.objects.all()
+        'places': Venue.objects.all()
     }
-    return render(request, 'all_places.html', context)
+    return render(request, 'all_venues.html', context)
 
 
-def venue(request, place_slug, venue_slug):
-    venue = get_object_or_404(Venue, slug=venue_slug, place__slug=place_slug)
+def event(request, venue_slug, event_slug):
+    event = get_object_or_404(Event, slug=event_slug, venue__slug=venue_slug)
 
     user_can_apply, user_can_apply_this, user_can_resign_this = False, False, False
 

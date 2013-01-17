@@ -10,8 +10,8 @@ urlpatterns = patterns('',
 
     # WKND urls
     url(r'^$', 'wknd.views.home', name='home'),
-    url(r'^all-places/$', 'wknd.views.all_places', name='all_places'),
-    url(r'^venues/(?P<place_slug>[\w-]+)/(?P<venue_slug>[\w-]+)/$', 'wknd.views.venue', name='venue'),
+    url(r'^all-places/$', 'wknd.views.all_events', name='all_places'),
+    url(r'^events/(?P<place_slug>[\w-]+)/(?P<event_slug>[\w-]+)/$', 'wknd.views.event', name='event'),
     #url(r'^venues/(?P<pk>\d+)/apply/$', 'wknd.views.apply_venue', name='apply_venue'),
     #url(r'^venues/(?P<pk>\d+)/resign/$', 'wknd.views.resign_venue', name='resign_venue'),
     
