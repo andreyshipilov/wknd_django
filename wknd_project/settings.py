@@ -2,7 +2,11 @@
 import re, sys
 from os.path import join, abspath, dirname
 
-from secret_info import *
+# Import credentials if present.
+try:
+    from secret_info import *
+except ImportError:
+    pass
 
 
 # This directory.
@@ -16,21 +20,12 @@ PATHS = (
 
 
 # Settings
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 ADMINS = (
     #('Andrey', 'yeah@right.com'),
 )
 MANAGERS = ADMINS
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': DATABASE_NAME_USER,
-        'USER': DATABASE_NAME_USER,
-        'PASSWORD': DATABASE_PASSWORD,
-    }
-}
 
 TIME_ZONE = 'Australia/Adelaide'
 LANGUAGE_CODE = 'en'
@@ -60,7 +55,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 ROOT_URLCONF = 'wknd_project.urls'
 TEMPLATE_DIRS = (
@@ -122,11 +117,7 @@ LOGOUT_REDIRECT_URL = '/'
 Third party apps settings go after that line.
 
 """
-# Django debug toolbar
-INTERNAL_IPS = ('127.0.0.1',)
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-}
+
 
 
 """
@@ -136,8 +127,8 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
-FACEBOOK_APP_ID = '33195800355586500'
-FACEBOOK_API_SECRET = '5a1d9a765db277a6d65457de4cf3e78600'
+FACEBOOK_APP_ID = ''
+FACEBOOK_API_SECRET = ''
 """
 
 # Local settings
@@ -146,3 +137,8 @@ try:
 except ImportError:
     pass
 
+# Live settings
+try:
+    from live_settings import *
+except ImportError:
+    pass

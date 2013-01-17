@@ -3,8 +3,8 @@
 *.db
 *.mo
 *.o
+*.json
 .DS_Store
 .coverage
-local_settings.py
-secret_info.py
+live_settings.py
 fabfile.py
