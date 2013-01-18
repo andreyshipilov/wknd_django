@@ -1,0 +1,65 @@
+/* Common useful */
+.clear	{clear: both; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0;}
+.clearfix:before,
+.clearfix:after {content: '\0020'; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0;}
+.clearfix:after {clear: both;}
+.clearfix {zoom: 1;}
+
+/* Project core */
+html {
+	font-size: 80%;
+	min-width: 1000px;
+}
+body {
+	font: normal 1em 'Roboto Condensed', Helvetica, Tahoma, sans-serif;
+}
+a:hover {
+	color: #be1216 !important;
+}
+
+/* Project styles */
+#page {
+    margin: 0 40px;
+}
+	#top {
+		margin: 20px 0;
+		position: relative;
+	}
+		#home {
+			float: left;
+			margin: 0;
+			text-indent: -9999px;
+			width: 85px;
+			height: 38px;
+			background: url('/static/img/sprite.gif') no-repeat 0 0 transparent;
+		}
+		#main-menu {
+			text-align: center;
+		}
+			#main-menu ul {
+			}
+				#main-menu ul li {
+					display: inline;
+					margin: 0 10px;
+				}
+			#main-menu a {
+				font-weight: bold;
+				font-size: 1.8em;
+				font-style: italic;
+				line-height: 40px;
+				color: #333;
+				text-decoration: none;
+			}
+		#login {
+			position: absolute;
+			top: 0;
+			right: 0;
+			line-height: 40px;
+			font-size: 1.8em;
+			font-style: italic;
+			color: #333;
+			text-decoration: none;
+		}
+			#login-links {
+				display: none;
+			}
