@@ -9,7 +9,8 @@ from .models import Venue, Event
 
 def home(request):
     context = {
-        'events': Event.get_current()
+        'events': Event.get_current(),
+        'is_home': True,
     }
     return render(request, 'home.html', context)
 

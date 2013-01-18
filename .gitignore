@@ -8,3 +8,6 @@
 .coverage
 live_settings.py
 fabfile.py
+*/media/*
+*/static/admin/*
+*/static/min/*

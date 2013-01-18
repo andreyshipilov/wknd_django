@@ -5,6 +5,11 @@ DATABASES = {
         'NAME': 'dev.db',
     }
 }
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.dummy.DummyCache',
+    }
+}
 
 # Django debug toolbar
 INTERNAL_IPS = ('127.0.0.1',)

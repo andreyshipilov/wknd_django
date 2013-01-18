@@ -2,11 +2,6 @@
 import re, sys
 from os.path import join, abspath, dirname
 
-# Import credentials if present.
-try:
-    from secret_info import *
-except ImportError:
-    pass
 
 
 # This directory.
@@ -32,9 +27,10 @@ LANGUAGE_CODE = 'en'
 SITE_ID = 1
 USE_I18N = True
 USE_L10N = True
-MEDIA_ROOT = '%s/media/' % PROJECT_DIR
+USE_TZ = False
+MEDIA_ROOT = join(PROJECT_DIR, "media")
 MEDIA_URL = '/media/'
-STATIC_ROOT = '%s/static/' % PROJECT_DIR
+STATIC_ROOT = join(PROJECT_DIR, "static")
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (
 )
@@ -42,6 +38,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    'compressor.finders.CompressorFinder',
 )
 SECRET_KEY = '_c#^&2xzwd@xt@i2b5kftn+*-9$t&l+bg9&zb3@^jq)&^s38*d'
 TEMPLATE_LOADERS = (
@@ -58,8 +55,9 @@ MIDDLEWARE_CLASSES = (
     'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
 ROOT_URLCONF = 'wknd_project.urls'
+WSGI_APPLICATION = 'wknd_project.wsgi.application'
 TEMPLATE_DIRS = (
-    '%s/templates' % PROJECT_DIR,
+    join(PROJECT_DIR, "templates"),
 )
 
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
@@ -75,12 +73,13 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    #'django.contrib.admindocs',
 
     'south',
     #'social_auth',
     'sorl.thumbnail',
     'debug_toolbar',
+    'google_analytics',
+    'compressor',
 
     'wknd',
     'usrs',
@@ -89,7 +88,20 @@ INSTALLED_APPS = (
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(message)s'
+        },
+    },
     'handlers': {
+        'console':{
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple'
+        },
         'mail_admins': {
             'level': 'ERROR',
             'class': 'django.utils.log.AdminEmailHandler'
@@ -112,7 +124,6 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 
-
 """
 Third party apps settings go after that line.
 
@@ -130,6 +141,12 @@ AUTHENTICATION_BACKENDS = (
 FACEBOOK_APP_ID = ''
 FACEBOOK_API_SECRET = ''
 """
+
+# Compressor
+COMPRESS_OUTPUT_DIR = 'min'
+COMPRESS_CSS_FILTERS = ['compressor.filters.cssmin.CSSMinFilter',]
+
+
 
 # Local settings
 try:
