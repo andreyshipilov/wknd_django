@@ -2,8 +2,6 @@
 
 
 {% block content %}
-	<h1>Events</h1>
-	
 	{% for i in events %}
 		<a href="{{ i.get_absolute_url }}">{{ i.title }}</a> {{ i.date_time|date:"F j" }}
 	{% endfor %}

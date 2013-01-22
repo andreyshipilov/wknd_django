@@ -1,11 +1,12 @@
-/* Common useful */
+/* Common useful styles */
 .clear	{clear: both; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0;}
 .clearfix:before,
 .clearfix:after {content: '\0020'; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0;}
 .clearfix:after {clear: both;}
 .clearfix {zoom: 1;}
 
-/* Project core */
+
+/* Project core styles */
 html {
 	font-size: 80%;
 	min-width: 1000px;
@@ -16,6 +17,7 @@ body {
 a:hover {
 	color: #be1216 !important;
 }
+
 
 /* Project styles */
 #page {
@@ -29,18 +31,19 @@ a:hover {
 			float: left;
 			margin: 0;
 			text-indent: -9999px;
-			width: 85px;
-			height: 38px;
-			background: url('/static/img/sprite.gif') no-repeat 0 0 transparent;
+			width: 93px;
+			height: 40px;
+			background: url('/static/img/sprite.png') no-repeat 0 0 transparent;
 		}
 		#main-menu {
-			text-align: center;
+			width: 50%;
+			margin: 0 auto;
 		}
 			#main-menu ul {
+				text-align: center;
 			}
 				#main-menu ul li {
 					display: inline;
-					margin: 0 10px;
 				}
 			#main-menu a {
 				font-weight: bold;
@@ -49,17 +52,29 @@ a:hover {
 				line-height: 40px;
 				color: #333;
 				text-decoration: none;
+				padding: 0 10px;
 			}
 		#login {
 			position: absolute;
 			top: 0;
-			right: 0;
+			right: 22px;
 			line-height: 40px;
 			font-size: 1.8em;
 			font-style: italic;
 			color: #333;
 			text-decoration: none;
 		}
+			#login span {
+				position: absolute;
+				line-height: 40px;
+				width: 12px;
+				border-right: solid 5px #fff;
+				border-left: solid 5px #fff;
+				//background: url('/static/img/sprite.png') no-repeat -131px 0 transparent;
+			}
+			#login:hover span {
+				background-position: -115px 0;
+			}
 			#login-links {
 				display: none;
 			}
