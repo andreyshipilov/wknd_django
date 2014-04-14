@@ -1,5 +1,6 @@
 {% extends "spaceless_base.html" %}
-{% load staticfiles analytics compress %}
+{% load compress %}
+{% load static from staticfiles %}
 
 
 {% block spaceless %}
@@ -33,10 +34,6 @@
 							document.body.appendChild(e);
 						}
 					</script>
-
-					{% if not debug %}
-						{% analytics_async "UA-xxxxxx-x" %}
-					{% endif %}
 				{% endblock %}
 			{% endcompress %}
 
@@ -52,7 +49,7 @@
 					{% if is_home %}
 						<h1 id="home">WKND Crew</h1>
 					{% else %}
-						<a href="{% url home %}">
+						<a href="{% url "home" %}">
 							<h1 id="home">WKND Crew</h1>
 						</a>
 					{% endif %}
@@ -79,12 +76,12 @@
 									<a href="{{ request.user.profile.get_absolute_url }}">Profile</a>
 								</li>
 								<li>
-									<a href="{% url logout %}">Logout</a>
+									<a href="{% url "logout" %}">Logout</a>
 								</li>
 							</ul>
 						</nav>
 					{% else %}
-						<p>Please <a href="{% url login %}">log in</a>. <a href="{% url registration %}">Or register</a>.</p>
+						<p>Please <a href="{% url "login" %}">log in</a>. <a href="{% url "registration" %}">Or register</a>.</p>
 					{% endif %}
 				</section>
 			</div>

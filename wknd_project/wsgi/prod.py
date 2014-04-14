@@ -1,5 +1,5 @@
 """
-WSGI config for wknd_django project.
+WSGI config for oneoval project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 
@@ -8,7 +8,7 @@ https://docs.djangoproject.com/en/1.6/howto/deployment/wsgi/
 """
 
 import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "wknd_django.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "oneoval.settings.prod")
 
 from django.core.wsgi import get_wsgi_application
 application = get_wsgi_application()
