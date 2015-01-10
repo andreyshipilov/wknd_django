@@ -16,7 +16,7 @@ WSGI_APPLICATION = "wknd_project.wsgi.dev.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql_psycopg2",
-        #"NAME": join(BASE_DIR, "default.db"),
+        #"NAME": join(BASE_DIR, "../default.db"),
         "NAME": "wknd",
         "USER": "dev",
         "PASSWORD": "dev"
