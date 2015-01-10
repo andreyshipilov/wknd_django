@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 #from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
+from django.utils.text import slugify
 
 from annoying.functions import get_object_or_None
 from datetime import datetime, timedelta
@@ -83,8 +84,6 @@ class Venue(models.Model):
         return self.canonical_title[0]
 
 
-
-
 class Genre(models.Model):
     """
     Well, a genre.
@@ -155,8 +154,10 @@ class Event(models.Model):
         """
         Overriding save to automatically generate slug.
         """
-        self.slug = "{0}-on-{1}".format(self.slug,
-            self.date_time.strftime("%B-%d-%Y").lower())
+        title_slug = slugify(self.title)
+        date_slug = self.date_time.strftime("%B-%d-%Y").lower() \
+            .replace('-0', '-')
+        self.slug = "{0}-{1}".format(title_slug, date_slug)
         models.Model.save(self, *args, **kwargs)
 
     @models.permalink
@@ -225,7 +226,8 @@ class Event(models.Model):
         Check if user can apply anything on that date.
         """
         # Check if current user have applied for anything held on the same day.
-        user_applied_per_day = self.get_current().filter(applied_users=user,
+        user_applied_per_day = self.get_current().filter(
+            applied_users=user,
             date_time__year=self.date_time.year,
             date_time__month=self.date_time.month,
             date_time__day=self.date_time.day).count()
