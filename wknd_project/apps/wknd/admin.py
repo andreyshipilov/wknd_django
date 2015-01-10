@@ -1,20 +1,26 @@
 from django.contrib import admin
 
-from .models import Venue, Event, Genre
+from .models import Venue, Event, Genre, City
 
 
 class VenueAdmin(admin.ModelAdmin):
-    prepopulated_fields = {"slug": ("title",)}
-    list_display = ('title', 'address')
+    #prepopulated_fields = {"slug": ("title",)}
+    list_display = ('title', 'address', 'slug')
+
+
 admin.site.register(Venue, VenueAdmin)
 
 
 class EventAdmin(admin.ModelAdmin):
     readonly_fields = ('slug',)
     list_display = ('title', 'venue',)
+
+
 admin.site.register(Event, EventAdmin)
 
 admin.site.register(Genre)
+
+admin.site.register(City)
 
 
 #class ProfileAdmin(admin.ModelAdmin):

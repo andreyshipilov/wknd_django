@@ -79,9 +79,9 @@ class RegularProfileView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super(RegularProfileView, self).get_context_data(**kwargs)
-        context['favourites'] = self.get_object().profile.favourite_places.all()
-        context['future_venues'] = self.get_object().profile.get_future_venues()
-        context['passed_venues'] = self.get_object().profile.get_passed_venues()
+        context['favourites'] = self.get_object().profile.favourite_venues.all()
+        context['future_events'] = self.get_object().profile.get_future_events()
+        context['passed_events'] = self.get_object().profile.get_passed_events()
         return context
 
 

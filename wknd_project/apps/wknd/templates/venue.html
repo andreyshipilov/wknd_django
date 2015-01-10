@@ -1,28 +1,67 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block title %}{{ venue.title }}, {{ venue.city }}{% endblock %}
+
+
+{% block head_addon %}
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+{% endblock %}
+
 
 {% block content %}
-	<h1>{{ venue.title }}</h1>
-	<span>Venue starts </span>
-	{% if venue.starts_today %}
-		<span>today at {{ venue.date_time|date:"P" }} It's in {{ venue.date_time|timeuntil }}.</span>
-	{% else %}
-		{% if venue.starts_tomorrow %}
-			<span>tomorrow</span>
-		{% else %}
-			<span>{{ venue.date_time|date:"\o\n F jS" }}</span>
-		{% endif %}
-		<span> {{ venue.date_time|date:"\a\t P" }}</span>
-	{% endif %}
-	
-	{% if user.is_authenticated %}
-		{% if user_can_apply or user_can_resign_this %}
-			<form action="." method="post">
-				{% csrf_token %}
-				<input type="hidden" value="apply_or_resign" name="apply_or_resign" />
-				<input type="submit" value="{% if user_can_apply_this %}Apply{% else %}Resign{% endif %}" />
-			</form>
-		{% else %}
-			You can only apply for two venues for the same date.
-		{% endif %}
-	{% endif %}
+    <table id="venue-container">
+        <tr>
+            <td>
+                <div id="venue">
+                    <div id="map" class="map"></div>
+                    <div class="description">
+                        <h1>{{ venue.title }}</h1>
+
+                        <p class="address">
+                            <span>{{ venue.address }}, {{ venue.city }} {{ venue.post_code }}</span>
+                            {% if venue.link %}
+                                <br/>
+                                <a href="{{ venue.link }}" rel="external">{{ venue.link }}</a>
+                            {% endif %}
+                        </p>
+                        <hr />
+                        <p>Share this place:</p>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div id="upcoming-events" class="clearfix">
+                    <h2>Upcoming events</h2>
+                    <h1>{{ upcoming_events }}</h1>
+                </div>
+
+                <div class="clear"></div>
+
+                <div id="past-events" class="clearfix">
+                    <h2>Past events</h2>
+                    <h1>{{ past_events }}</h1>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <script type="text/javascript">
+        var map, marker;
+
+        function initialize() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 18,
+                center: new google.maps.LatLng({{ venue.coords_lat }}, {{ venue.coords_lng }}),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng({{ venue.coords_lat }}, {{ venue.coords_lng }}),
+                map: map,
+                title: "{{ venue.title }}"
+            });
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
 {% endblock %}

@@ -1,0 +1,106 @@
+html {
+  min-width: 1000px; }
+
+  body {
+    font: normal 62.5% / 1.3 "Din Regular", "Roboto Condensed", Helvetica, Arial,
+        sans-serif; }
+
+    a {
+      color: #be1216; }
+
+      p {
+        font-size: 1.7em; }
+
+        h1 {
+          font: bold 4.8em / 1 "Din Medium";
+          font-style: italic;
+          text-transform: uppercase;
+          color: #333; }
+
+          h2 {
+            font: bold 2.4em / 1 "Din Regular";
+            font-style: italic;
+            text-transform: uppercase;
+            color: #333; }
+
+            h2 {
+              font: bold 1.8em / 1 "Din Regular";
+              font-style: italic;
+              text-transform: uppercase;
+              color: #333; }
+
+              hr {
+                height: 1px;
+                border-style: none;
+                margin: 2em 0;
+                background-color: #bdbdbd;
+                color: #bdbdbd; }
+
+                i, em {
+                  font-style: italic; }
+
+                  b, strong {
+                    font-weight: bold; }
+
+                    .nobr {
+                      white-space: nowrap; }
+
+                      #page {
+                        margin: 0 4%;
+                        width: 92%; }
+
+                        #top {
+                          margin: 20px 0;
+                          position: relative; }
+
+                          #logo {
+                            float: left;
+                            margin: 0;
+                            text-indent: -9999px;
+                            width: 93px;
+                            height: 40px;
+                            background: url(../img/sprite.png) no-repeat 0 0 transparent; }
+
+                            #main-menu {
+                              width: 50%;
+                              margin: 0 auto; }
+                              #main-menu ul {
+                                text-align: center; }
+                                #main-menu ul li {
+                                  display: inline; }
+                              #main-menu a, #main-menu h1 {
+                                display: inline;
+                                text-transform: none;
+                                font: normal 2.6em "Din Medium";
+                                font-style: italic;
+                                line-height: 1.5;
+                                color: #333;
+                                text-decoration: none;
+                                padding: 0 10px; }
+                                #main-menu a.in, #main-menu h1.in {
+                                  color: #be1216;
+                                  text-decoration: underline; }
+                              #main-menu h1 {
+                                color: #be1216; }
+
+#login {
+  top: 0;
+  right: 22px;
+  position: absolute;
+  line-height: 40px;
+  font-size: 1.8em;
+  font-style: italic;
+  color: #333;
+  text-decoration: none; }
+  #login:hover span {
+    background-position: -115px 0; }
+    #login span {
+      position: absolute;
+      line-height: 40px;
+      width: 12px;
+      border-right: solid 5px #fff;
+      border-left: solid 5px #fff;
+      background: url(../img/sprite.png) no-repeat -131px 0 transparent; }
+
+#login-links {
+  display: none; }

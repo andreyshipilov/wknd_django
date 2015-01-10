@@ -6,8 +6,8 @@
 *.json
 .DS_Store
 .coverage
+.idea
 live_settings.py
 fabfile.py
-*/media/*
-*/static/admin/*
-*/static/min/*
+media_root
+static_root

@@ -1,0 +1,415 @@
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+blockquote, q {
+    quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+/* Clearfix */
+.clear {
+    clear: both;
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix:before,
+.clearfix:after {
+    content: "\0020";
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    width: 0;
+    height: 0;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    zoom: 1;
+}
+@font-face {
+    font-family: 'Din Medium';
+    src: url('/static/css/fonts/pfdintextcomppro-medium-webfont.eot');
+    src: url('/static/css/fonts/pfdintextcomppro-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/css/fonts/pfdintextcomppro-medium-webfont.woff') format('woff'),
+         url('/static/css/fonts/pfdintextcomppro-medium-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+@font-face {
+    font-family: 'Din Regular';
+    src: url('/static/css/fonts/pfdintextcomppro-regular-webfont.eot');
+    src: url('/static/css/fonts/pfdintextcomppro-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('/static/css/fonts/pfdintextcomppro-regular-webfont.woff') format('woff'),
+         url('/static/css/fonts/pfdintextcomppro-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+html {
+  min-width: 1000px;
+}
+body {
+  font: normal 62.5% / 1.3 "Din Regular", "Roboto Condensed", Helvetica, Tahoma,
+    sans-serif;
+}
+a:hover {
+  color: #be1216 !important;
+}
+p {
+  font-size: 1.7em;
+}
+h1 {
+  font: bold 4.8em / 1 "Din Medium";
+  font-style: italic;
+  text-transform: uppercase;
+  color: #333;
+}
+h2 {
+  font: bold 2.4em / 1 "Din Regular";
+  font-style: italic;
+  text-transform: uppercase;
+  color: #333;
+}
+#page {
+  margin: 0 4%;
+  width: 92%;
+}
+#top {
+  margin: 20px 0;
+  position: relative;
+}
+#logo {
+  float: left;
+  margin: 0;
+  text-indent: -9999px;
+  width: 93px;
+  height: 40px;
+  background: url('/static/img/sprite.png') no-repeat 0 0 transparent;
+}
+#main-menu {
+  width: 50%;
+  margin: 0 auto;
+}
+#main-menu ul {
+  text-align: center;
+}
+#main-menu ul li {
+  display: inline;
+}
+#main-menu ul li.active {
+  color: #be1216;
+}
+#main-menu a, #main-menu span {
+  font: normal 2.6em "Din Medium";
+  font-style: italic;
+  line-height: 1.5;
+  color: #333;
+  text-decoration: none;
+  padding: 0 10px;
+}
+#login {
+  top: 0;
+  right: 22px;
+  position: absolute;
+  line-height: 40px;
+  font-size: 1.8em;
+  font-style: italic;
+  color: #333;
+  text-decoration: none;
+}
+#login:hover span {
+  background-position: -115px 0;
+}
+#login span {
+  position: absolute;
+  line-height: 40px;
+  width: 12px;
+  border-right: solid 5px #fff;
+  border-left: solid 5px #fff;
+  background: url('/static/img/sprite.png') no-repeat -131px 0 transparent;
+}
+#login-links {
+  display: none;
+}
+
+#home {
+  margin-right: -12px;
+}
+#home a {
+  text-decoration: none;
+}
+#home time {
+  display: none;
+}
+#home .main-block {
+  float: left;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+#home .container {
+  background-color: #898989;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  transition-duration: 500ms;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+#home .container:hover {
+  transition-duration: 100ms;
+  box-shadow: 0 1px 12px rgba(0, 0, 0, 0.3);
+}
+#home .container .content {
+  padding: 6px;
+  height: 100%;
+  position: relative;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+#home .applied-count {
+  position: absolute;
+  right: 6px;
+  font-size: 1.4em;
+  line-height: 1.4;
+  padding: 0 6px 0 12px;
+  color: #598527 !important;
+  background: url('/static/img/sprite.png') no-repeat 6px -42px #fff;
+  text-shadow: none !important;
+  border-radius: 8px;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+}
+#home .main-event {
+  margin-bottom: 12px;
+}
+#home .main-event .event {
+  width: 66.66%;
+}
+#home .main-event .border {
+  margin-right: 12px;
+}
+#home .main-event .about {
+  width: 33.33%;
+  margin: 0;
+}
+#home .main-event .about {
+  color: #fff;
+}
+#home .main-event .date, #home .main-event .time {
+  font-size: 2.2em;
+  color: #333;
+}
+#home .main-event .date {
+  font-family: 'Din Medium';
+}
+#home .main-event .venue {
+  font-size: 2.7em;
+  color: #666;
+}
+#home .main-event .event, #home .main-event .about {
+  float: left;
+}
+#home .main-event .event .container, #home .main-event .about .container {
+  height: 292px;
+  display: block;
+}
+#home .main-event .event .container {
+  background: url('http://lorempixel.com/850/300/nightlife/') 50% 50%;
+}
+#home .main-event .event .container .content {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border-radius: 2px;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+}
+#home .main-event .event .container .content td {
+  width: 50%;
+}
+#home .main-event .event .container .content.flat-image {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+#home .main-event .event .container .content.flat-image * {
+  color: #fff;
+}
+#home .main-event .event .container .content .description {
+  padding-right: 2em;
+  vertical-align: middle;
+}
+#home .main-event .applied-count {
+  bottom: 6px;
+}
+#home .secondary-events {
+  margin-bottom: 12px;
+}
+#home .secondary-events .event {
+  width: 33.33%;
+  float: left;
+}
+#home .secondary-events .event .border {
+  margin-right: 12px;
+}
+#home .secondary-events .event .container {
+  height: 160px;
+  display: block;
+}
+#home .secondary-events .event .container .content {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+}
+#home .secondary-events .event .container .content * {
+  text-shadow: 0 0 5px #000;
+}
+#home .secondary-events .event .container .content td {
+  width: 50%;
+}
+#home .secondary-events .event .container .content .date,
+#home .secondary-events .event .container .content .time {
+  font-size: 1.4em;
+  color: #333;
+}
+#home .secondary-events .event .container .content .date {
+  font-family: 'Din Medium';
+}
+#home .secondary-events .event .container .content .description {
+  padding-right: 2em;
+  vertical-align: middle;
+}
+#home .secondary-events .event .container .content .venue {
+  font-size: 1.8em;
+  color: #666;
+}
+#home .secondary-events .applied-count {
+  bottom: 6px;
+}
+#home .tertiary-event {
+  float: left;
+  margin-bottom: 12px;
+}
+#home .tertiary-event .border {
+  margin-right: 12px;
+}
+#home .tertiary-event .container {
+  height: 226px;
+  display: block;
+  background-color: #fff;
+  overflow: hidden;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+}
+#home .tertiary-event .illustration {
+  height: 50%;
+  background-color: #898989;
+  border-radius: 2px 2px 0 0;
+  -moz-border-radius: 2px 2px 0 0;
+  -webkit-border-radius: 2px 2px 0 0;
+}
+#home .tertiary-event .description {
+  height: 50%;
+}
+#home .tertiary-event .description .content .shadow {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  -webkit-box-shadow: inset -10px -10px 30px 5px white;
+  -moz-box-shadow: inset -10px -10px 30px 5px white;
+  box-shadow: inset -10px -10px 30px 5px white;
+}
+#home .tertiary-event .date, #home .tertiary-event .time {
+  color: #1a1a1a;
+  font-size: 1.4em;
+}
+#home .tertiary-event .date {
+  font-family: 'Din Medium';
+}
+#home .tertiary-event .venue {
+  color: #959595;
+  font-size: 1.8em;
+}
+@media all and (min-width: 1865px) {
+  #home .main-block {
+    width: 60%;
+  }
+  #home .tertiary-event {
+    width: 10%;
+  }
+}
+@media all and (max-width: 1865px) {
+  #home .main-block {
+    width: 75%;
+  }
+  #home .tertiary-event {
+    width: 12.5%;
+  }
+}
+@media all and (max-width: 1399px) {
+  #home .main-block {
+    width: 100%;
+  }
+  #home .tertiary-event {
+    width: 16.666%;
+  }
+}

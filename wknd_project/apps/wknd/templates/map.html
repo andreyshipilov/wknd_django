@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+{% block head_addon %}
+    <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div id="map" style="height: 500px;"></div>
+    <script type="text/javascript">
+        var map, bounds;
+
+        function initialize() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: new google.maps.LatLng(0, 0),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            bounds = new google.maps.LatLngBounds();
+
+            {% for o in venues %}
+                var LatLng = new google.maps.LatLng({{ o.coords_lat }}, {{ o.coords_lng }});
+                bounds.extend(LatLng);
+                map.fitBounds(bounds);
+                var marker = new google.maps.Marker({
+                    position: LatLng,
+                    map: map,
+                    title: "{{ o.title }}"
+                });
+            {% endfor %}
+        }
+
+        google.maps.event.addDomListener(window, "load", initialize);
+    </script>
+{% endblock %}

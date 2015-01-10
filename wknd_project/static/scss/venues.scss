@@ -1,0 +1,126 @@
+@import "bourbon/bourbon";
+
+#venues {
+    margin-right: -12px;
+
+    .container {
+        float: left;
+        width: 25%;
+
+        .venue {
+            margin: 0 12px 12px 0;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+            border-radius: 3px;
+
+            h2 {
+                font-size: 3.6em;
+                padding: 10px 0 0 10px;
+            }
+            ul {
+                margin-top: 10px;
+                padding-left: 0;
+
+                li {
+                    list-style: none;
+
+                    a {
+                        color: #949494;
+                        line-height: 34px;
+                        font-size: 1.8em;
+                        text-decoration: none;
+                        padding: 0 10px;
+                        display: block;
+
+                        .title {
+                            color: #333;
+                            font-weight: bold;
+                            font-style: italic;
+                            text-transform: uppercase;
+                        }
+                        .border {
+                            @include transition(0);
+                            border-bottom: 1px solid #bdbdbd;
+
+                            &.last {
+                                border: none;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &:hover {
+                @include transition(100ms);
+                background-color: #898989;
+
+                h2 {
+                    color: #fff;
+                }
+                ul {
+                    li {
+                        a {
+                            color: #d7d7d7;
+
+                            .title {
+                                color: #fff;
+                            }
+                        }
+                        a:hover {
+                            color: #333 !important;
+                            background-color: #73cb00;
+
+                            .title {
+                                color: #333 !important;
+                            }
+                            .border {
+                                border-color: #73cb00 !important;
+                            }
+                        }
+                    }
+                }
+                .border {
+                    @include transition(0);
+                    border-color: #898989 !important;
+                }
+            }
+        }
+    }
+    .clear_4 {
+        display: block;
+    }
+    .clear_2,
+    .clear_3 {
+        display: none;
+    }
+}
+
+@media all and (max-width: 1399px) {
+    #venues {
+        .container {
+            width: 33.33%;
+        }
+        .clear_3 {
+            display: block;
+        }
+        .clear_2,
+        .clear_4 {
+            display: none;
+        }
+    }
+}
+
+/* iPad and less */
+@media all and (max-width: 1023px) {
+    #venues {
+        .container {
+            width: 50%;
+        }
+        .clear_2 {
+            display: block;
+        }
+        .clear_3,
+        .clear_4 {
+            display: none;
+        }
+    }
+}

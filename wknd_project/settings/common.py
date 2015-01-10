@@ -15,8 +15,6 @@ DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
-
 # Application definition
 DJANGO_APPS = (
     'django.contrib.admin',
@@ -32,6 +30,8 @@ THIRD_PARTY_APPS = (
     'compressor',
     'south',
     'typogrify',
+    'bourbon',
+    'meta',
 )
 
 LOCAL_APPS = (
@@ -59,16 +59,23 @@ ROOT_URLCONF = 'wknd_project.urls'
 
 # Internationalization
 LANGUAGE_CODE = 'en-us'
+
 TIME_ZONE = 'Australia/Adelaide'
+
 USE_I18N = False
+
 USE_L10N = True
+
 USE_TZ = False
 
-STATIC_URL = '/static/'
+STATIC_URL = '/s/'
+
 STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
+
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
 )
+
 STATICFILES_FINDERS += (
     'compressor.finders.CompressorFinder',
 )
@@ -77,18 +84,28 @@ TEMPLATE_DIRS = (
     os.path.join(BASE_DIR, 'templates'),
 )
 
-
 # Django compressor
-COMPRESS_CSS_FILTERS = [
-    'compressor.filters.template.TemplateFilter',
-    'compressor.filters.css_default.CssAbsoluteFilter',
-]
-COMPRESS_JS_FILTERS = [
-    'compressor.filters.template.TemplateFilter',
-]
+COMPRESS_PRECOMPILERS = (
+    ('text/x-scss', 'django_libsass.SassCompiler'),
+)
 
 # Django extensions.
 GRAPH_MODELS = {
-  'all_applications': True,
-  'group_models': True,
+    'all_applications': True,
+    'group_models': True,
 }
+
+# WKND defaults
+#AUTH_PROFILE_MODULE = 'usrs.Profile'
+APPLICATION_PER_DAY_LIMIT = 2
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
+# Django Meta
+META_SITE_PROTOCOL = 'http'
+META_SITE_DOMAIN = 'wkndcrew.com'
+META_SITE_TYPE = 'website'
+META_DEFAULT_KEYWORDS = META_INCLUDE_KEYWORDS = ['events', 'South Australia', 'Adelaide', 'WKND crew']
+META_USE_OG_PROPERTIES = True
+META_USE_TWITTER_PROPERTIES = True

@@ -14,17 +14,17 @@ class Profile(models.Model):
     """
     Base user Profile model.
     """
-    user = AutoOneToOneField(User, primary_key=True,)
-    activation_key = models.CharField(max_length=40, blank=True,)
+    user = AutoOneToOneField(User, primary_key=True, )
+    activation_key = models.CharField(max_length=40, blank=True, )
 
     # User differentiation.
     user_type = models.PositiveIntegerField(choices=settings.USER_TYPES,
-                                            default=1, db_index=True,)
+        default=1, db_index=True, )
     # Regular user fields.
     favourite_venues = models.ManyToManyField(Venue, blank=True,
-                                related_name='%(app_label)s_%(class)s_related',)
+        related_name='%(app_label)s_%(class)s_related', )
     # Venue manager fields.
-    manager_of = models.OneToOneField(Venue, blank=True, null=True,)
+    manager_of = models.OneToOneField(Venue, blank=True, null=True, )
 
     # Manager overload
     objects = ProfileManager()
@@ -47,17 +47,20 @@ class Profile(models.Model):
     def is_manager(self):
         return True if self.user_type == 2 else False
 
-    def get_future_venues(self):
-        return self.user.venue_set.select_related().filter(date_time__gt=datetime.now())
+    def get_future_events(self):
+        return self.user.event_set.select_related().filter(
+            date_time__gt=datetime.now())
 
-    def get_passed_venues(self):
-        return self.user.venue_set.select_related().filter(date_time__lte=datetime.now())
+    def get_passed_events(self):
+        return self.user.event_set.select_related().filter(
+            date_time__lte=datetime.now())
 
     def activation_key_expired(self):
         """
         Checks if activation key is expired.
         """
         expiration_days = timedelta(days=settings.ACTIVATION_DAYS)
-        return self.activation_key == settings.ACTIVATED or \
-               (self.user.date_joined + expiration_date <= datetime_now())
+        return self.activation_key == settings.ACTIVATED or (
+            self.user.date_joined + expiration_date <= datetime_now())
+
     activation_key_expired.boolean = True

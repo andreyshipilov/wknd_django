@@ -1,0 +1,271 @@
+@import "bourbon/bourbon";
+
+#home {
+    margin-right: -12px;
+
+    a {
+        text-decoration: none;
+    }
+    time {
+        display: none;
+    }
+    .main-block {
+        @include box-sizing(border-box);
+        float: left;
+    }
+    .container {
+        @include transition(500ms);
+        box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
+        background-color: #898989;
+        border-radius: 3px;
+
+        &:hover {
+            @include transition(100ms);
+            box-shadow: 0 1px 12px rgba(0, 0, 0, .3);
+        }
+        .content {
+            @include box-sizing(border-box);
+            padding: 6px;
+            height: 100%;
+            position: relative;
+        }
+    }
+    .applied-count {
+        position: absolute;
+        right: 6px;
+        z-index: 1;
+        font-size: 1.4em;
+        line-height: 1.4;
+        padding: 0 6px 0 12px;
+        color: #598527 !important;
+        background: url("../img/sprite.png") no-repeat 6px -42px #fff;
+        text-shadow: none !important;
+        border-radius: 8px;
+    }
+
+    /* Main event block */
+    .main-event {
+        margin-bottom: 12px;
+
+        .event {
+            width: 66.66%;
+        }
+        .border {
+            margin-right: 12px;
+        }
+        .about {
+            width: 33.33%;
+            margin: 0;
+            color: #fff;
+        }
+        .date,
+        .time {
+            font-size: 2.2em;
+            color: #333;
+        }
+        .date {
+            font-family: "Din Medium";
+        }
+        .venue {
+            font-size: 2.7em;
+            color: #666;
+        }
+        .event,
+        .about {
+            float: left;
+
+            .container {
+                height: 292px;
+                display: block;
+            }
+        }
+        .event {
+            .container {
+                background: url(http://lorempixel.com/900/300/nightlife/) 50% 50%; // TODO: remove.
+                background-size: cover;
+
+                .content {
+                    width: 100%;
+                    height: 100%;
+                    padding: 0;
+                    border-radius: 3px;
+
+                    td {
+                        width: 50%;
+                    }
+                    &.flat-image {
+                        background-color: rgba(0, 0, 0, .7);
+
+                        * {
+                            color: #fff;
+                        }
+                    }
+                    .description {
+                        padding-right: 2em;
+                        vertical-align: middle;
+
+                        .summary {
+                            font-size: 4.8em;
+                        }
+                    }
+                }
+            }
+        }
+        .applied-count {
+            bottom: 6px;
+        }
+    }
+
+    /* Secondary events block */
+    .secondary-events {
+        margin-bottom: 12px;
+
+        .event {
+            width: 33.33%;
+            float: left;
+
+            .border {
+                margin-right: 12px;
+            }
+
+            .container {
+                height: 160px;
+                display: block;
+                background-size: cover !important;
+
+                .content {
+                    width: 100%;
+                    height: 100%;
+                    padding: 0;
+
+                    * {
+                        text-shadow: 0 0 5px #000;
+                    }
+                    td {
+                        width: 50%;
+                    }
+                    &.flat-image {
+                        background-color: rgba(0, 0, 0, .7);
+
+                        * {
+                            color: #fff !important;
+                        }
+                    }
+                    .date,
+                    .time {
+                        font-size: 1.4em;
+                        color: #333;
+                    }
+                    .date {
+                        font-family: "Din Medium";
+                    }
+                    .description {
+                        padding-right: 2em;
+                        vertical-align: middle;
+                    }
+                    .venue {
+                        font-size: 1.8em;
+                        color: #666;
+                    }
+                }
+            }
+        }
+
+        .applied-count {
+            bottom: 6px;
+        }
+    }
+
+    /* Tertiary events block */
+    .tertiary-event {
+        float: left;
+        margin-bottom: 12px;
+
+        .border {
+            margin-right: 12px;
+        }
+
+        .container {
+            @include box-sizing(border-box);
+            height: 226px;
+            display: block;
+            background-color: #fff;
+            overflow: hidden;
+            padding: 0;
+        }
+
+        .illustration {
+            height: 50%;
+            background-color: #898989;
+            background-size: cover !important;
+            border-radius: 3px 3px 0 0;
+        }
+
+        .description {
+            height: 50%;
+
+            .content {
+                .shadow {
+                    position: absolute;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    top: 0;
+                    box-shadow: inset -10px -10px 30px 5px rgba(255, 255, 255, 1);
+                }
+            }
+        }
+
+        .date,
+        .time {
+            color: #1a1a1a;
+            font-size: 1.4em;
+        }
+
+        .date {
+            font-family: "Din Medium";
+        }
+
+        .venue {
+            color: #959595;
+            font-size: 1.8em;
+        }
+    }
+}
+
+/* Queries */
+@media all and (min-width: 1865px) {
+    #home .main-block {
+        width: 60%;
+    }
+
+    #home .tertiary-event {
+        width: 10%;
+    }
+}
+
+@media all and (max-width: 1865px) {
+    #home .main-block {
+        width: 75%;
+    }
+
+    #home .tertiary-event {
+        width: 12.5%;
+    }
+}
+
+@media all and (max-width: 1399px) {
+    #home .main-block {
+        width: 100%;
+    }
+
+    #home .tertiary-event {
+        width: 16.666%;
+    }
+}
+
+/* iPad and less */
+@media all and (max-width: 1023px) {
+    body {
+    }
+}

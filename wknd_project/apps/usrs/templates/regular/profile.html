@@ -2,33 +2,33 @@
 
 
 {% block content %}
-	<h1>{{ user }}</h1>
-	<p><a href="{% url regular_profile_edit %}">Edit profile</a></p>
+    <h1>{{ user }}</h1>
+    <p><a href="{% url "regular_profile_edit" %}">Edit profile</a></p>
 
-	{% if favourites %}
-		<h3>Favourite places</h3>
-		<ul>
-			{% for i in favourites %}
-				<li>{{ i.title }}</li>
-			{% endfor %}
-		</ul>
-	{% endif %}
+    {% if favourites %}
+        <h3>Favourite places</h3>
+        <ul>
+            {% for i in favourites %}
+                <li>{{ i.title }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-	{% if future_venues %}
-		<h3>Upcoming venues</h3>
-		<ul>
-			{% for i in future_venues %}
-				<li><a href="{{ i.get_absolute_url }}">{{ i.title }}</a> - Resign</li>
-			{% endfor %}
-		</ul>
-	{% endif %}
+    {% if future_venues %}
+        <h3>Upcoming venues</h3>
+        <ul>
+            {% for i in future_venues %}
+                <li><a href="{{ i.get_absolute_url }}">{{ i.title }}</a> - Resign</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-	{% if passed_venues %}
-		<h3>Passed venues</h3>
-		<ul>
-			{% for i in passed_venues %}
-				<li>{{ i.title }}</li>
-			{% endfor %}
-		</ul>
-	{% endif %}
+    {% if passed_venues %}
+        <h3>Passed venues</h3>
+        <ul>
+            {% for i in passed_venues %}
+                <li>{{ i.title }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock %}
