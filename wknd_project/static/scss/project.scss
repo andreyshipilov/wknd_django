@@ -19,60 +19,57 @@
 }
 
 #main-menu {
-    width: 50%;
-    margin: 0 auto;
+    text-align: center;
 
     ul {
-        text-align: center;
+        padding-left: 0;
+        margin: 0;
 
         li {
-            display: inline;
+            display: inline-block;
         }
     }
     a,
     h1 {
-        display: inline;
+        display: inline-block;
         text-transform: none;
-        font: normal 2.6em "Din Medium";
+        font: normal 2.6em $FONT_DIN_MEDIUM;
         font-style: italic;
-        line-height: 1.5;
+        line-height: 40px;
         color: #333;
         text-decoration: none;
         padding: 0 10px;
 
         &.in {
-            color: #be1216;
+            color: $COLOUR_LINKS;
             text-decoration: underline;
         }
     }
     h1 {
-        color: #be1216;
+        color: $COLOUR_LINKS;
+    }
+    a:hover {
+        color: darken($COLOUR_LINKS, 20%);
     }
 }
 
 #login {
-    top: 0;
-    right: 22px;
-    position: absolute;
+    display: inline-block;
     line-height: 40px;
     font-size: 1.8em;
     color: #333;
     text-decoration: none;
-
-    &:hover span {
-        background-position: -115px 0;
-    }
-
-    span {
-        position: absolute;
-        line-height: 40px;
-        width: 12px;
-        border-right: solid 5px #fff;
-        border-left: solid 5px #fff;
-        background: url(../img/sprite.png) no-repeat -131px 0 transparent;
-    }
 }
 
-#login-links {
-    display: none;
+#logout {
+    display: inline-block;
+    margin-left: 20px;
+    line-height: 40px;
+    width: 12px;
+    background: url(../img/sprite.png) no-repeat -131px -5px transparent;
+    color: #fff;
+
+    &:hover {
+        background-position: -115px -5px;
+    }
 }

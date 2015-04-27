@@ -1,20 +1,19 @@
-#venue-container {
-    width: 100%;
-
-    td {
-        width: 50%;
-        vertical-align: top;
-    }
-}
 #venue {
     box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
     border-radius: 3px;
 
     .description {
         padding: 24px;
+        margin-bottom: 1em;
 
         .address {
-            font-size: 2.6em;
+            font-size: 2em;
+        }
+        .shares{
+            margin-bottom: 0;
+            a {
+                margin: 0 .5em;
+            }
         }
     }
     .map {

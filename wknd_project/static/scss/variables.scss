@@ -1,0 +1,24 @@
+@import "bourbon/bourbon";
+
+// Colours.
+$COLOUR_LINKS: #be1216;
+$COLOUR_APPLICATION: #598527;
+$COLOUR_ACTIVE_BACKGROUND: #73cb00;
+
+// Fonts.
+$FONT_DIN_REGULAR: "Din Regular", "Roboto Condensed", $helvetica;
+$FONT_DIN_MEDIUM: "Din Medium", "Roboto Condensed", $helvetica;
+$FONT_DIN_REGULAR: "Din Regular", "Roboto Condensed", $helvetica;
+
+// Mixins.
+@mixin query($class) {
+    @if $class == mobile {
+        @media (max-width: 767px) {
+            @content;
+        }
+    } @else if $class == tablet {
+        @media (max-width: 1023px) {
+            @content;
+        }
+    }
+}

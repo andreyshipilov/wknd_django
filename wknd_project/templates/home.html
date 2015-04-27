@@ -1,119 +1,128 @@
 {% extends "base.html" %}
-{% load humanize webdesign %}
-{% load staticfiles %}
+{% load humanize webdesign static %}
 
 
 {% block title_separator %}{% endblock %}
 
 
 {% block content %}
-    <div id="home" class="clearfix">
-        <div class="main-block">
-            <div class="main-event clearfix">
-                <div class="event vevent" id="hcalendar-{{ main_event.slug }}" itemscope itemtype="http://schema.org/Event">
-                    <div class="border">
-                        <a href="{{ main_event.get_absolute_url }}" class="container url" itemprop="url">
-                            <table class="content flat-image">
-                                <tr>
-                                    <td></td>
-                                    <td class="description">
-                                        {% if main_event.applied_users_count %}
-                                            <div class="applied-count">{{ main_event.applied_users_count }}</div>
-                                        {% endif %}
-                                        <time class="dtstart" itemprop="startDate">{{ main_event.date_time|date:"c" }}</time>
-                                        <span class="date">{{ main_event.date_time|naturalday:"F j"|capfirst }}</span>
-                                        <span class="time"> at {{ main_event.date_time|date:"P" }}</span>
+    <div class="grid-container">
+        <div class="grid-100">
+            <div id="home" class="clearfix">
+                <div class="main-block">
+                    <div class="main-event clearfix">
+                        <div class="event vevent" id="hcalendar-{{ main_event.slug }}" itemscope itemtype="http://schema.org/Event">
+                            <div class="border">
+                                <a href="{{ main_event.get_absolute_url }}" class="container url" itemprop="url">
+                                    <table class="content flat-image">
+                                        <tr>
+                                            <td></td>
+                                            <td class="description">
+                                                {% if main_event.applied_users_count %}
+                                                    <div class="applied-count">{{ main_event.applied_users_count }}</div>
+                                                {% endif %}
+                                                <time class="dtstart" itemprop="startDate">{{ main_event.date_time|date:"c" }}</time>
+                                                <span class="date">{{ main_event.date_time|naturalday:"F j"|capfirst }}</span>
+                                                <span class="time"> at {{ main_event.date_time|date:"P" }}</span>
 
-                                        <h2 class="summary" itemprop="name">{% lorem 3 w random %}{# main_event.title #}</h2>
-                                        <span class="venue location">{% lorem 3 w random %}{# main_event.venue.title #}</span>
-                                        <span class="category" itemprop="genre">{{ main_event.genre }}</span>
-                                    </td>
-                                </tr>
-                            </table>
-                        </a>
-                    </div>
-                </div>
-                <div class="about">
-                    <div class="border">
-                        <div class="container">
-                            <div class="content">
-                                <p>WKND CREW is when Gregor Samsa woke from
-                                    troubled dreams, he
-                                    found himself transformed in his bed into a
-                                    horrible vermin.
-                                    He
-                                    lay on his armour-like back, and if he
-                                    lifted his head a
-                                    little
-                                    he could see his brown belly, slightly domed
-                                    and divided by
-                                    arches into stiff sections. The bedding was
-                                    hardly able to
-                                    cover
-                                    it and seemed ready to slide off any moment.
-                                    His many legs,
-                                    pitifully thin compared with the size of the
-                                    rest of him,
-                                    waved
-                                    about helplessly as he looked.</p>
+                                                <h2 class="summary" itemprop="name">{% lorem 3 w random %}{# main_event.title #}</h2>
+                                                <span class="venue location">{% lorem 3 w random %}{# main_event.venue.title #}</span>
+                                                <span class="category" itemprop="genre">{{ main_event.genre }}</span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="about">
+                            <div class="border">
+                                <div class="container">
+                                    <div class="content">
+                                        <p>WKND CREW is when Gregor Samsa woke from
+                                            troubled dreams, he
+                                            found himself transformed in his bed into a
+                                            horrible vermin.
+                                            He
+                                            lay on his armour-like back, and if he
+                                            lifted his head a
+                                            little
+                                            he could see his brown belly, slightly domed
+                                            and divided by
+                                            arches into stiff sections. The bedding was
+                                            hardly able to
+                                            cover
+                                            it and seemed ready to slide off any moment.
+                                            His many legs,
+                                            pitifully thin compared with the size of the
+                                            rest of him,
+                                            waved
+                                            about helplessly as he looked.</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div class="secondary-events clearfix">
-                {% for i in secondary_events %}
-                    <div class="event vevent" id="hcalendar-{{ i.slug }}">
-                        <div class="border">
-                            <a href="{{ i.get_absolute_url }}" class="container url" style="background: url('http://lorempixel.com/480/160/?{{ forloop.counter }}') 50% 50%;">
-                                <table class="content flat-image">
-                                    <tr>
-                                        <td></td>
-                                        <td class="description">
-                                            {% if i.applied_users_count %}
-                                                <div class="applied-count">{{ i.applied_users_count }}</div>
-                                            {% endif %}
-                                            <time class="dtstart">{{ i.date_time|date:"Y-m-d H:i" }}</time>
-                                            <span class="date">{{ i.date_time|naturalday:"F j"|capfirst }}</span>
-                                            <span class="time"> at {{ i.date_time|date:"P" }}</span>
+                    <div class="secondary-events clearfix">
+                        {% for i in secondary_events %}
+                            <div class="event vevent" id="hcalendar-{{ i.slug }}">
+                                <div class="border">
+                                    <a href="{{ i.get_absolute_url }}" class="container url" style="background: url('http://lorempixel.com/480/160/?{{ forloop.counter }}') 50% 50%;">
+                                        <table class="content flat-image">
+                                            <tr>
+                                                <td></td>
+                                                <td class="description">
+                                                    {% if i.applied_users_count %}
+                                                        <div class="applied-count">{{ i.applied_users_count }}</div>
+                                                    {% endif %}
+                                                    <time class="dtstart">{{ i.date_time|date:"Y-m-d H:i" }}</time>
+                                                    <span class="date">{{ i.date_time|naturalday:"F j"|capfirst }}</span>
+                                                    <span class="time"> at {{ i.date_time|date:"P" }}</span>
 
+                                                    <h2 class="summary">{% lorem 3 w random %}{# i.title #}</h2>
+                                                    <span class="venue location">{% lorem 3 w random %}{# i.venue.title #}</span>
+                                                    <span class="category">{{ i.genre }}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                {% for i in tertiary_events %}
+                    <section class="tertiary-event vevent" id="hcalendar-{{ i.slug }}">
+                        <div class="border">
+                            <a href="{{ i.get_absolute_url }}" class="container url">
+                                <div class="illustration" style="background: url('http://lorempixel.com/236/113/?{{ forloop.counter }}') 50% 50%;"></div>
+                                <div class="description">
+                                    <div class="content">
+                                        {% if i.applied_users_count %}
+                                            <div class="applied-count">{{ i.applied_users_count }}</div>
+                                        {% endif %}
+
+                                        <time class="dtstart">{{ i.date_time|date:"Y-m-d H:i" }}</time>
+                                        <span class="date">{{ i.date_time|naturalday:"F j"|capfirst }}</span>
+                                        <span class="time"> at {{ i.date_time|date:"P" }}</span>
+
+                                        <header>
                                             <h2 class="summary">{% lorem 3 w random %}{# i.title #}</h2>
+                                        </header>
+
+                                        <footer>
                                             <span class="venue location">{% lorem 3 w random %}{# i.venue.title #}</span>
                                             <span class="category">{{ i.genre }}</span>
-                                        </td>
-                                    </tr>
-                                </table>
+                                        </footer>
+
+                                        <div class="shadow"></div>
+                                    </div>
+                                </div>
                             </a>
                         </div>
-                    </div>
+                    </section>
                 {% endfor %}
             </div>
         </div>
-
-        {% for i in tertiary_events %}
-            <div class="tertiary-event vevent" id="hcalendar-{{ i.slug }}">
-                <div class="border">
-                    <a href="{{ i.get_absolute_url }}" class="container url">
-                        <div class="illustration" style="background: url('http://lorempixel.com/236/113/?{{ forloop.counter }}') 50% 50%;"></div>
-                        <div class="description">
-                            <div class="content">
-                                {% if i.applied_users_count %}
-                                    <div class="applied-count">{{ i.applied_users_count }}</div>
-                                {% endif %}
-                                <time class="dtstart">{{ i.date_time|date:"Y-m-d H:i" }}</time>
-                                <span class="date">{{ i.date_time|naturalday:"F j"|capfirst }}</span>
-                                <span class="time"> at {{ i.date_time|date:"P" }}</span>
-
-                                <h2 class="summary">{% lorem 3 w random %}{# i.title #}</h2>
-                                <span class="venue location">{% lorem 3 w random %}{# i.venue.title #}</span>
-                                <span class="category">{{ i.genre }}</span>
-
-                                <div class="shadow"></div>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        {% endfor %}
     </div>
 {% endblock %}

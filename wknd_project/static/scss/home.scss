@@ -37,8 +37,8 @@
         font-size: 1.4em;
         line-height: 1.4;
         padding: 0 6px 0 12px;
-        color: #598527 !important;
-        background: url("../img/sprite.png") no-repeat 6px -42px #fff;
+        color: $COLOUR_APPLICATION !important;
+        background: url(../img/sprite.png) no-repeat 6px -42px #fff;
         text-shadow: none !important;
         border-radius: 8px;
     }

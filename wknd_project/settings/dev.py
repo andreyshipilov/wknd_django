@@ -1,6 +1,7 @@
 """
 Development settings.
 """
+
 from os.path import join
 from common import *
 
@@ -9,27 +10,29 @@ DEBUG = True
 
 COMPRESS_ENABLED = True
 
+COMPRESS_REBUILD_TIMEOUT = 1
+
 TEMPLATE_DEBUG = DEBUG
 
-WSGI_APPLICATION = "wknd_project.wsgi.dev.application"
+WSGI_APPLICATION = 'wknd_project.wsgi.dev.application'
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql_psycopg2",
-        #"NAME": join(BASE_DIR, "../default.db"),
-        "NAME": "wknd",
-        "USER": "dev",
-        "PASSWORD": "dev"
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        # 'NAME': join(BASE_DIR, '../default.db'),
+        'NAME': 'wknd',
+        'USER': 'dev',
+        'PASSWORD': 'dev'
     }
 }
 
 INSTALLED_APPS += (
-    "django.contrib.webdesign",
-    "debug_toolbar",
-    "django_extensions",
-    "django_reset",
+    'django.contrib.webdesign',
+    'debug_toolbar',
+    'django_extensions',
+    'django_reset',
 )
 
 MIDDLEWARE_CLASSES += (
-    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )

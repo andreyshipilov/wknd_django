@@ -14,7 +14,7 @@ def home(request):
     context = {
         'main_event': Event.get_main_event(),
         'secondary_events': Event.get_secondary_events(),
-        'tertiary_events': list(Event.get_tertiary_events()) * 30,
+        'tertiary_events': list(Event.get_tertiary_events()),
         'is_home': True
     }
     return render(request, 'home.html', context)
@@ -32,7 +32,7 @@ def venue(request, venue_slug):
     upcoming_events = Event.get_current().filter(venue=venue)
     past_events = Event.get_past().filter(venue=venue)
 
-    meta = Meta (
+    meta = Meta(
         title=venue.title,
         url=venue.get_absolute_url(),
         description=venue.description,
@@ -53,7 +53,7 @@ def event(request, venue_slug, event_slug):
     user_can_apply_this = False
     user_can_resign_this = False
 
-    meta = Meta (
+    meta = Meta(
         title=event.title,
         url=event.get_absolute_url(),
         description=event.description,

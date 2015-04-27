@@ -50,6 +50,7 @@
             }
 
             &:hover {
+                // TODO: Make odd styling for mobile.
                 @include transition(100ms);
                 background-color: #898989;
 
@@ -67,13 +68,13 @@
                         }
                         a:hover {
                             color: #333 !important;
-                            background-color: #73cb00;
+                            background-color: $COLOUR_ACTIVE_BACKGROUND;
 
                             .title {
                                 color: #333 !important;
                             }
                             .border {
-                                border-color: #73cb00 !important;
+                                border-color: $COLOUR_ACTIVE_BACKGROUND !important;
                             }
                         }
                     }
@@ -92,10 +93,8 @@
     .clear_3 {
         display: none;
     }
-}
 
-@media all and (max-width: 1399px) {
-    #venues {
+    @media all and (max-width: 1399px) {
         .container {
             width: 33.33%;
         }
@@ -107,11 +106,8 @@
             display: none;
         }
     }
-}
 
-/* iPad and less */
-@media all and (max-width: 1023px) {
-    #venues {
+    @include query(tablet) {
         .container {
             width: 50%;
         }
@@ -123,4 +119,13 @@
             display: none;
         }
     }
+    @include query(mobile) {
+        .container {
+            width: 100%;
+        }
+    }
 }
+
+
+/* iPad and less */
+

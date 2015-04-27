@@ -11,9 +11,8 @@ import settings
 
 
 class Profile(models.Model):
-    """
-    Base user Profile model.
-    """
+    """Base user Profile model."""
+
     user = AutoOneToOneField(User, primary_key=True, )
     activation_key = models.CharField(max_length=40, blank=True, )
 

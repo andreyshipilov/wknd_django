@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
-#from django.core.exceptions import ObjectDoesNotExist
+# from django.core.exceptions import ObjectDoesNotExist
 from django.conf import settings
 from django.utils.text import slugify
 
@@ -219,7 +219,7 @@ class Event(models.Model):
     @property
     def starts_tomorrow(self):
         return True if self.date_time.date() == datetime.today().date() + \
-                       timedelta(1) else False
+                                                timedelta(1) else False
 
     def user_can_apply(self, user):
         """

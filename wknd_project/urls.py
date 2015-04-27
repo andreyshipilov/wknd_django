@@ -19,7 +19,7 @@ urlpatterns = patterns('',
     url(r'^events/(?P<venue_slug>[\w-]+)/(?P<event_slug>[\w-]+)/$', wknd.views.event, name='event'),
     #url(r'^venues/(?P<pk>\d+)/apply/$', 'wknd.views.apply_venue', name='apply_venue'),
     #url(r'^venues/(?P<pk>\d+)/resign/$', 'wknd.views.resign_venue', name='resign_venue'),
-    url(r'^map/$', wknd.views.map, name='map'),
+    #url(r'^map/$', wknd.views.map, name='map'),
     
     #url(r'^register/$', 'wknd.views.registration', name='registration'),
     #url(r'^login/$', 'wknd.views.login_view', name='login'),

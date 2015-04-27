@@ -17,8 +17,9 @@
             {% compress css %}
                 {% block compressed_css %}
                     <link rel="stylesheet" type="text/css" media="all" href="{% static "css/normalize.css" %}"/>
-                    {#                <link rel="stylesheet" type="text/css" media="all" href="{% static "css/grid.css" %}" />#}
+                                    <link rel="stylesheet" type="text/css" media="all" href="{% static "css/unsemantic-grid-responsive-no-ie7.css" %}" />
                     <link rel="stylesheet" type="text/css" media="all" href="{% static "css/fonts/fonts.css" %}"/>
+                    <link rel="stylesheet" type="text/css" media="all" href="{% static "css/fontawesome/font-awesome.css" %}"/>
                     <link rel="stylesheet" type="text/x-scss" media="all" href="{% static "scss/base.scss" %}"/>
                     {% block addon_css %}{% endblock %}
                 {% endblock %}
@@ -58,51 +59,52 @@
         </head>
         <body>
             <div id="page">
-                <section id="top" class="clearfix">
-                    {% if is_home %}
-                        <h1 id="logo">WKND Crew</h1>
-                    {% else %}
-                        <a href="{% url "home" %}">
-                            <div id="logo">WKND Crew</div>
-                        </a>
-                    {% endif %}
+                <section id="top">
+                    <div class="grid-container">
+                        <div class="grid-20">
+                            {% if is_home %}
+                                <h1 id="logo">WKND Crew</h1>
+                            {% else %}
+                                <a href="{% url "home" %}">
+                                    <div id="logo">WKND Crew</div>
+                                </a>
+                            {% endif %}
+                        </div>
 
-                    <nav id="main-menu">
-                        <ul>
-                            <li>
-                                <a href="">Events</a>
-                            </li>
-                            <li>
-                                {% url "venues" as venues_url %}
-                                {% ifequal request.path venues_url %}
-                                    <h1>Venues</h1>
+                        <div class="grid-60">
+                            <nav id="main-menu">
+                                <ul>
+                                    <li>
+                                        <a href="">Events</a>
+                                    </li>
+                                    <li>
+                                        {% url "venues" as venues_url %}
+                                        {% ifequal request.path venues_url %}
+                                            <h1>Venues</h1>
+                                        {% else %}
+                                            <a href="{{ venues_url }}"{% if venues_url in request.path %} class="in"{% endif %}>Venues</a>
+                                        {% endifequal %}
+                                    </li>
+                                    <li>
+                                        <a href="">Map</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+
+                        <div class="grid-20">
+                            <div class="text-right">
+                                {% if user.is_authenticated %}
+                                    <a id="login" href="{{ request.user.profile.get_absolute_url }}" title="Hey {{ request.user.username }}.">My Profile</a>
+                                    <a id="logout" href="{% url "logout" %}" title="Logout.">&nbsp;</a>
                                 {% else %}
-                                    <a href="{{ venues_url }}"{% if venues_url in request.path %} class="in"{% endif %}>Venues</a>
-                                {% endifequal %}
-                            </li>
-                            <li>
-                                <a href="">Map</a>
-                            </li>
-                        </ul>
-                    </nav>
-
-                    {% if user.is_authenticated %}
-                        <a id="login" href="{{ request.user.profile.get_absolute_url }}">{{ request.user.username }}<span>&nbsp;</span></a>
-                        <nav id="login-links">
-                            <ul>
-                                <li>
-                                    <a href="{{ request.user.profile.get_absolute_url }}">Profile</a>
-                                </li>
-                                <li>
-                                    <a href="{% url "logout" %}">Logout</a>
-                                </li>
-                            </ul>
-                        </nav>
-                    {% else %}
-                        <p>Please <a href="{% url "login" %}">log in</a>.
-                            <a href="{% url "registration" %}">Or register</a>.</p>
-                    {% endif %}
+                                    <p>Please <a href="{% url "login" %}">log in</a>. <a href="{% url "registration" %}">Or register</a>.</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
                 </section>
+
                 {% block content %}
                 {% endblock %}
             </div>

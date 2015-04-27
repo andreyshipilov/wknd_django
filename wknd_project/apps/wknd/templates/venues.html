@@ -7,37 +7,41 @@
 
 {% block content %}
     {% regroup venues by canonical_title_first_letter as letter_list %}
-    <div id="venues" class="clearfix">
-        {% for letter in letter_list %}
-            <div class="container">
-                <div class="venue">
-                    <h2>{{ letter.grouper }}</h2>
-                    <ul>
-                        {% for venue in letter.list %}
-                            <li>
-                                <a href="{{ venue.get_absolute_url }}" class="nobr">
-                                    <div class="border{% if forloop.last %} last{% endif %}">
-                                        <span class="title">{{ venue.title }} </span>
-                                        <span> {{ venue.address }}</span>
-                                    </div>
-                                </a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
+    <div id="venues">
+        <div class="grid-container">
+            <div class="grid-100">
+                {% for letter in letter_list %}
+                    <div class="container">
+                        <div class="venue {% cycle "odd" "even" %}">
+                            <h2>{{ letter.grouper }}</h2>
+                            <ul>
+                                {% for venue in letter.list %}
+                                    <li>
+                                        <a href="{{ venue.get_absolute_url }}" class="nobr">
+                                            <div class="border{% if forloop.last %} last{% endif %}">
+                                                <span class="title">{{ venue.title }} </span>
+                                                <span> {{ venue.address }}</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                    {% if forloop.counter|divisibleby:4 %}
+                        <div class="clear_4 clear"></div>
+                    {% endif %}
+
+                    {% if forloop.counter|divisibleby:3 %}
+                        <div class="clear_3 clear"></div>
+                    {% endif %}
+
+                    {% if forloop.counter|divisibleby:2 %}
+                        <div class="clear_2 clear"></div>
+                    {% endif %}
+                {% endfor %}
             </div>
-
-            {% if forloop.counter|divisibleby:4 %}
-                <div class="clear_4 clear"></div>
-            {% endif %}
-
-            {% if forloop.counter|divisibleby:3 %}
-                <div class="clear_3 clear"></div>
-            {% endif %}
-
-            {% if forloop.counter|divisibleby:2 %}
-                <div class="clear_2 clear"></div>
-            {% endif %}
-        {% endfor %}
+        </div>
     </div>
 {% endblock %}

@@ -7,9 +7,9 @@ from .models import *
 
 
 class ProfileAdminForm(forms.ModelForm):
-    """
-    Change the admin view to handle some Place/Manger relations.
-    """
+    """Change the admin view to handle some Place/Manger relations."""
+
+    pass
 
     class Meta:
         model = Profile
@@ -33,8 +33,11 @@ class ProfileAdminForm(forms.ModelForm):
                           manager: %s.' % data.get('manager_of').profile.user)
         return data['manager_of']
 
+
 class ProfileAdmin(admin.ModelAdmin):
-    list_display =('user', 'user_type', 'is_manager', 'is_regular',)
+    list_display = ('user', 'user_type', 'is_manager', 'is_regular',)
     list_filter = ('user_type',)
     form = ProfileAdminForm
+
+
 admin.site.register(Profile, ProfileAdmin)
