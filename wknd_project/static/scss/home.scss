@@ -92,6 +92,10 @@
 
                     td {
                         width: 50%;
+
+                        @include query(tablet) {
+                            width: auto;
+                        }
                     }
                     &.flat-image {
                         background-color: rgba(0, 0, 0, .7);
@@ -103,6 +107,11 @@
                     .description {
                         padding-right: 2em;
                         vertical-align: middle;
+
+                        @include query(tablet) {
+                            width: 100%;
+                            padding-left: 2em;
+                        }
 
                         .summary {
                             font-size: 4.8em;
@@ -124,6 +133,10 @@
             width: 33.33%;
             float: left;
 
+            @include query(mobile) {
+                width: 100%;
+            }
+
             .border {
                 margin-right: 12px;
             }
@@ -143,6 +156,10 @@
                     }
                     td {
                         width: 50%;
+
+                        @include query(tablet) {
+                            width: auto;
+                        }
                     }
                     &.flat-image {
                         background-color: rgba(0, 0, 0, .7);
@@ -162,6 +179,11 @@
                     .description {
                         padding-right: 2em;
                         vertical-align: middle;
+
+                        @include query(tablet) {
+                            width: 100%;
+                            padding-left: 2em;
+                        }
                     }
                     .venue {
                         font-size: 1.8em;
