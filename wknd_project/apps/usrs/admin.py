@@ -13,6 +13,7 @@ class ProfileAdminForm(forms.ModelForm):
 
     class Meta:
         model = Profile
+        fields = '__all__'
 
     def clean_manager_of(self):
         data = self.cleaned_data
