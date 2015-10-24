@@ -25,7 +25,8 @@
                                                 <span class="date">{{ main_event.date_time|naturalday:"F j"|capfirst }}</span>
                                                 <span class="time"> at {{ main_event.date_time|date:"P" }}</span>
 
-                                                <h2 class="summary" itemprop="name">{% lorem 3 w random %}{# main_event.title #}</h2>
+                                                <h2 class="summary" itemprop="name">
+                                                    {% lorem 3 w random %}{# main_event.title #}</h2>
                                                 <span class="venue location">{% lorem 3 w random %}{# main_event.venue.title #}</span>
                                                 <span class="category" itemprop="genre">{{ main_event.genre }}</span>
                                             </td>
@@ -78,7 +79,8 @@
                                                     <span class="date">{{ i.date_time|naturalday:"F j"|capfirst }}</span>
                                                     <span class="time"> at {{ i.date_time|date:"P" }}</span>
 
-                                                    <h2 class="summary">{% lorem 3 w random %}{# i.title #}</h2>
+                                                    <h2 class="summary">
+                                                        {% lorem 3 w random %}{# i.title #}</h2>
                                                     <span class="venue location">{% lorem 3 w random %}{# i.venue.title #}</span>
                                                     <span class="category">{{ i.genre }}</span>
                                                 </td>
@@ -107,7 +109,8 @@
                                         <span class="time"> at {{ i.date_time|date:"P" }}</span>
 
                                         <header>
-                                            <h2 class="summary">{% lorem 3 w random %}{# i.title #}</h2>
+                                            <h2 class="summary">
+                                                {% lorem 3 w random %}{# i.title #}</h2>
                                         </header>
 
                                         <footer>
